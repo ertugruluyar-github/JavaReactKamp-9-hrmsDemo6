@@ -10,11 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +28,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.TechnologyKnowledge;
 
 @RestController
 @RequestMapping("/api/technologyknowledges")
+@CrossOrigin
 public class TechnologyKnowledgesController {
 	
 	private TechnologyKnowledgeService  technologyKnowledgeService;
@@ -41,6 +46,16 @@ public class TechnologyKnowledgesController {
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody TechnologyKnowledge technologyKnowledge) {
 		return ResponseEntity.ok(this.technologyKnowledgeService.add(technologyKnowledge));
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> delete(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.technologyKnowledgeService.delete(id));
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> update(@Valid @RequestBody TechnologyKnowledge technologyKnowledge) {
+		return ResponseEntity.ok(this.technologyKnowledgeService.update(technologyKnowledge));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

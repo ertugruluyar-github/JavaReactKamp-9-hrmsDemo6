@@ -61,7 +61,7 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	}
 
 	@Override
-	public DataResult<String> uploadPhoto(Integer id, String filePath) {
+	public DataResult<String> uploadPhoto(int id, String filePath) {
 		File file = new File(filePath);
 		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
 		if ((object == null)) {

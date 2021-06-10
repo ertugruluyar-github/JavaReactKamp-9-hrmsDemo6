@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.CityService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.CityDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.City;
 
@@ -24,6 +26,11 @@ public class CityManager implements CityService {
 	@Override
 	public DataResult<List<City>> getAll() {
 		return new SuccessDataResult<List<City>>("Cities listed succesfully.", this.cityDao.findAll());
+	}
+
+	@Override
+	public Result update(City city) {
+		return new SuccessResult("City update successfully.");
 	}
 
 }

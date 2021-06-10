@@ -10,9 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +28,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.CurriculumVitae;
 
 @RestController
 @RequestMapping("/api/curriculumvitaes")
+@CrossOrigin
 public class CurriculumVitaesController {
 	
 	private CurriculumVitaeService curriculumVitaeService;
@@ -42,6 +46,16 @@ public class CurriculumVitaesController {
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody CurriculumVitae curriculumVitae) {
 		return ResponseEntity.ok(this.curriculumVitaeService.add(curriculumVitae));
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> delete(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.curriculumVitaeService.delete(id));
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> update(@Valid @RequestBody CurriculumVitae curriculumVitae) {
+		return ResponseEntity.ok(this.curriculumVitaeService.update(curriculumVitae));
 	}
 	
 	@GetMapping("/getallbyjobseekerid")

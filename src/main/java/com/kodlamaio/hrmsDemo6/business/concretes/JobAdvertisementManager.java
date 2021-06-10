@@ -30,6 +30,18 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 	
 	@Override
+	public Result delete(int id) {
+		this.jobAdvertisementDao.deleteById(id);;
+		return new SuccessResult("Job advertisement deleted successfully.");
+	}
+	
+	@Override
+	public Result update(JobAdvertisement jobAdvertisement) {
+		this.jobAdvertisementDao.save(jobAdvertisement);
+		return new SuccessResult("Job advertisement updated successfully.");
+	}
+	
+	@Override
 	public DataResult<List<JobAdvertisement>> getByActivated() {
 		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed successfully.", this.jobAdvertisementDao.findByActiveTrue());
 	}
@@ -45,12 +57,12 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 
 	@Override
-	public DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(Integer id) {
+	public DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(int id) {
 		return new SuccessDataResult<List<JobAdvertisement>>("The employer's active job advertisements listed successfully.", this.jobAdvertisementDao.findByActiveTrueAndEmployer_Id(id));
 	}
 
 	@Override
-	public Result activateJobAdvertisement(Integer id) {
+	public Result activateJobAdvertisement(int id) {
 		JobAdvertisement j = this.jobAdvertisementDao.findById(id).get();
 		j.setActive(true);
 		this.jobAdvertisementDao.save(j);
@@ -58,7 +70,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 
 	@Override
-	public Result deactivateJobAdvertisement(Integer id) {
+	public Result deactivateJobAdvertisement(int id) {
 		JobAdvertisement j = this.jobAdvertisementDao.findById(id).get();
 		j.setActive(false);
 		this.jobAdvertisementDao.save(j);

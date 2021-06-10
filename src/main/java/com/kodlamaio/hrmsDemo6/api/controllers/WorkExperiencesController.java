@@ -10,11 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +28,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.WorkExperience;
 
 @RestController
 @RequestMapping("/api/workexperiences")
+@CrossOrigin
 public class WorkExperiencesController {
 	
 	private WorkExperienceService workExperienceService;
@@ -36,6 +41,21 @@ public class WorkExperiencesController {
 	@GetMapping("/getall")
 	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(this.workExperienceService.getAll());
+	}
+	
+	@PostMapping("/add")
+	public ResponseEntity<?> add(@Valid @RequestBody WorkExperience workExperience) {
+		return ResponseEntity.ok(this.workExperienceService.add(workExperience));
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> delete(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.workExperienceService.delete(id));
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> update(@Valid @RequestBody WorkExperience workExperience) {
+		return ResponseEntity.ok(this.workExperienceService.update(workExperience));
 	}
 	
 	@GetMapping("/getallorderbyenddatedesc")
@@ -53,10 +73,6 @@ public class WorkExperiencesController {
 		return ResponseEntity.ok(this.workExperienceService.getByEndDateIsNotNullOrderByEndDateDesc());
 	}
 	
-	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody WorkExperience workExperience) {
-		return ResponseEntity.ok(this.workExperienceService.add(workExperience));
-	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)

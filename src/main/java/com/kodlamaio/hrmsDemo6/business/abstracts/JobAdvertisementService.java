@@ -8,11 +8,14 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
 
 public interface JobAdvertisementService {
 	Result add(JobAdvertisement jobAdvertisement);
+	Result delete(int id);
+	Result update(JobAdvertisement jobAdvertisement);
+	
 	DataResult<List<JobAdvertisement>> getByActivated();
 	DataResult<List<JobAdvertisement>> getByActivatedOrderByReleaseDateAsc();
 	DataResult<List<JobAdvertisement>> getByActivatedOrderByApplicationDeadlineAsc();
-	DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(Integer id);
+	DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(int id);
 	
-	Result activateJobAdvertisement(Integer id);
-	Result deactivateJobAdvertisement(Integer id);
+	Result activateJobAdvertisement(int id);
+	Result deactivateJobAdvertisement(int id);
 }

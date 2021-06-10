@@ -13,5 +13,5 @@ public interface CurriculumVitaeService {
 	Result delete(int id);
 	Result update(CurriculumVitae curriculumVitae);
 	DataResult<List<CurriculumVitae>> getAllByJobSeekerId(int id);
-	DataResult<String> uploadPhoto(Integer id, String filePath);
+	DataResult<String> uploadPhoto(int id, String filePath);
 }

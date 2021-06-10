@@ -10,9 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +28,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
 
 @RestController
 @RequestMapping("/api/jobadvertisements")
+@CrossOrigin
 public class JobAdvertisementsController {
 	
 	private JobAdvertisementService jobAdvertisementService;
@@ -37,6 +41,16 @@ public class JobAdvertisementsController {
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody JobAdvertisement jobAdvertisement) {
 		return ResponseEntity.ok(this.jobAdvertisementService.add(jobAdvertisement));
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> delete(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.jobAdvertisementService.delete(id));
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> update(@Valid @RequestBody JobAdvertisement jobAdvertisement) {
+		return ResponseEntity.ok(this.jobAdvertisementService.update(jobAdvertisement));
 	}
 	
 	@GetMapping("/getallactivated")
@@ -55,17 +69,17 @@ public class JobAdvertisementsController {
 	}		
 	
 	@GetMapping("/getallactivatedandemployerid")
-	public ResponseEntity<?> getByActivatedAndEmployerId(@Valid @RequestParam(name = "id") Integer id) {
+	public ResponseEntity<?> getByActivatedAndEmployerId(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndEmployerId(id));
 	}
 	
 	@GetMapping("/activatejobadvertisement")
-	public ResponseEntity<?> activateJobAdvertisement(@Valid @RequestParam(name = "id") Integer id) {
+	public ResponseEntity<?> activateJobAdvertisement(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.jobAdvertisementService.activateJobAdvertisement(id));
 	}
 	
 	@GetMapping("/deactivatejobadvertisement")
-	public ResponseEntity<?> deactivateJobAdvertisement(@Valid @RequestParam(name = "id") Integer id) {
+	public ResponseEntity<?> deactivateJobAdvertisement(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.jobAdvertisementService.deactivateJobAdvertisement(id));
 	}
 	

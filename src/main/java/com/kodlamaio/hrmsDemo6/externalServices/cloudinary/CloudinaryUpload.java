@@ -12,9 +12,9 @@ public class CloudinaryUpload {
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> upload(File file) {
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-				"cloud_name", "Your cloud_name",
-				"api_key", "Your api_key code",
-				"api_secret", "Your api_secret code"));
+				"cloud_name", "hrmsdemo",//use yourself
+				"api_key", "635127775344211",//use yourself
+				"api_secret", "VT6SQEdS-PrVw5nXBFHoSwxyjgs"));//use yourself
 		try {
 			@SuppressWarnings("rawtypes")
 			Map params = ObjectUtils.asMap(

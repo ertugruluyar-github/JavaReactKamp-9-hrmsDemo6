@@ -39,8 +39,8 @@ public class CurriculumVitae {
 	@Column(name="github_link")
 	private String githubLink;
 	
-	@Column(name="linkedın_link")
-	private String linkedınLink;
+	@Column(name="linkedin_link")
+	private String linkedinLink;
 	
 	@Column(name="description")
 	private String description;

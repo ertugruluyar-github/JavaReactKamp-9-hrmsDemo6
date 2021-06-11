@@ -27,9 +27,22 @@ public class CityManager implements CityService {
 	public DataResult<List<City>> getAll() {
 		return new SuccessDataResult<List<City>>("Cities listed succesfully.", this.cityDao.findAll());
 	}
+	
+	@Override
+	public Result add(City city) {
+		this.cityDao.save(city);
+		return new SuccessResult("City added succesfully.");
+	}
+
+	@Override
+	public Result delete(int id) {
+		this.cityDao.deleteById(id);
+		return new SuccessResult("City deleted succesfully.");
+	}
 
 	@Override
 	public Result update(City city) {
+		this.cityDao.save(city);
 		return new SuccessResult("City update successfully.");
 	}
 

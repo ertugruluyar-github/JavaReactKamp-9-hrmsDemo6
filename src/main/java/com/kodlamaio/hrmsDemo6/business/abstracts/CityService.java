@@ -8,5 +8,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.City;
 
 public interface CityService {
 	DataResult<List<City>> getAll();
+	Result add(City city);
+	Result delete(int id);
 	Result update(City city);
 }

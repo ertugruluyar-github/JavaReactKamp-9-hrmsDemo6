@@ -70,7 +70,7 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	    if (!file.getContentType().toString().startsWith("image")) {
 	    	return new ErrorDataResult<String>("Failed to load photo! The file is not an image.", file.getContentType());
 	    } else if (!this.curriculumVitaeDao.existsById(id)) {
-			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", file.getContentType());
+			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);
 		} else {
 			String secure_url = this.cloudinaryUploadService.upload(file).get("secure_url").toString();
 			CurriculumVitae curriculumVitae = this.curriculumVitaeDao.findById(id).get();

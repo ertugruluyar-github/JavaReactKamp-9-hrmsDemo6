@@ -42,8 +42,8 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	}
 
 	@Override
-	public Result add(CurriculumVitae language) {
-		this.curriculumVitaeDao.save(language);
+	public Result add(CurriculumVitae curriculumVitae) {
+		this.curriculumVitaeDao.save(curriculumVitae);
 		return new SuccessResult("Curriculum Vitae added succesfully.");
 	}
 
@@ -54,8 +54,8 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	}
 
 	@Override
-	public Result update(CurriculumVitae language) {
-		this.curriculumVitaeDao.save(language);
+	public Result update(CurriculumVitae curriculumVitae) {
+		this.curriculumVitaeDao.save(curriculumVitae);
 		return new SuccessResult("Curriculum Vitae updated succesfully.");
 	}
 
@@ -75,9 +75,9 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);
 		} else {
 			String secure_url = object.toString();
-			CurriculumVitae c = this.curriculumVitaeDao.findById(id).get();
-			c.setPhotoLink(secure_url);
-			this.update(c);
+			CurriculumVitae curriculumVitae = this.curriculumVitaeDao.findById(id).get();
+			curriculumVitae.setPhotoLink(secure_url);
+			this.curriculumVitaeDao.save(curriculumVitae);
 			return new SuccessDataResult<String>("Photo upload successfully.", secure_url);
 		}
 	}

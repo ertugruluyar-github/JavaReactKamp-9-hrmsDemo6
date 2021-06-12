@@ -25,7 +25,7 @@ public class CloudinaryUpload {
 				    "notification_url", null,
 				    "resource_type", "image"         
 				);
-			Map<String, Object> uploadResult = cloudinary.uploader().upload(file, params);
+			Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(), params);
 			return uploadResult;
 			//System.out.println(uploadResult.get("secure_url"));
 		} catch (IOException e) {

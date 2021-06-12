@@ -69,12 +69,12 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	public DataResult<String> uploadPhoto(int id, String filePath) {
 		File file = new File(filePath);
 		if (!file.exists()) {
-			file = new File(file.toURI());
+			file = new File("", filePath);
 		}
 		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
 		if ((object == null)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found image.",
-					String.valueOf(file.toURI() + "    " + file.getAbsolutePath()));
+					String.valueOf(file.getPath() + "    " + file.getAbsolutePath()));
 		} else if (!this.curriculumVitaeDao.existsById(id)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);
 		} else {

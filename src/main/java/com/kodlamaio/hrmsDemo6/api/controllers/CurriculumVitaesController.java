@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.CurriculumVitaeService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
@@ -65,8 +66,8 @@ public class CurriculumVitaesController {
 	
 	@PostMapping("/uploadphoto")
 	public ResponseEntity<?> uploadPhoto(@RequestParam(name = "id") Integer id,
-			@RequestParam(name = "filePath") String filePath) {
-		return ResponseEntity.ok(this.curriculumVitaeService.uploadPhoto(id, filePath));
+			@RequestParam(name = "filePath") MultipartFile file) {
+		return ResponseEntity.ok(this.curriculumVitaeService.uploadPhoto(id, file));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

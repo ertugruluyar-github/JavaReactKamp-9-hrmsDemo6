@@ -1,8 +1,9 @@
 package com.kodlamaio.hrmsDemo6.externalServices.cloudinary;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -10,7 +11,7 @@ import com.cloudinary.utils.ObjectUtils;
 public class CloudinaryUpload {
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> upload(File file) {
+	public Map<String, Object> upload(MultipartFile file) {
 		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
 				"cloud_name", "hrmsdemo",//use yourself
 				"api_key", "635127775344211",//use yourself

@@ -1,10 +1,10 @@
 package com.kodlamaio.hrmsDemo6.business.concretes;
 
-import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.CurriculumVitaeService;
 import com.kodlamaio.hrmsDemo6.core.adapters.abstracts.CloudinaryUploadService;
@@ -66,15 +66,11 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	}
 
 	@Override
-	public DataResult<String> uploadPhoto(int id, String filePath) {
-		File file = new File(filePath);
-		if (!file.exists()) {
-			file = new File(filePath.substring(0));
-		}
+	public DataResult<String> uploadPhoto(int id, MultipartFile file) {
 		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
 		if ((object == null)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found image.",
-					String.valueOf(file.getPath() + "    " + file.getAbsolutePath()));
+					String.valueOf(file.getOriginalFilename() + "    " + file.toString()));
 		} else if (!this.curriculumVitaeDao.existsById(id)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);
 		} else {

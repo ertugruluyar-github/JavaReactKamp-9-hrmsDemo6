@@ -67,14 +67,10 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
 	@Override
 	public DataResult<String> uploadPhoto(int id, MultipartFile file) {
-		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
-		if ((object == null)) {
-			return new ErrorDataResult<String>("Failed to load photo! Not found image.",
-					String.valueOf(file.getContentType() + "    " + file.getResource()));
-		} else if (!this.curriculumVitaeDao.existsById(id)) {
-			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);
+		if (!this.curriculumVitaeDao.existsById(id)) {
+			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", file.getContentType());
 		} else {
-			String secure_url = object.toString();
+			String secure_url = this.cloudinaryUploadService.upload(file).get("secure_url").toString();
 			CurriculumVitae curriculumVitae = this.curriculumVitaeDao.findById(id).get();
 			curriculumVitae.setPhotoLink(secure_url);
 			this.curriculumVitaeDao.save(curriculumVitae);

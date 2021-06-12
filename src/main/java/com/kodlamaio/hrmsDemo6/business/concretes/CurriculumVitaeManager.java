@@ -18,24 +18,27 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.CurriculumVitae;
 
 @Service
 public class CurriculumVitaeManager implements CurriculumVitaeService {
-	
+
 	private CurriculumVitaeDao curriculumVitaeDao;
 	private CloudinaryUploadService cloudinaryUploadService;
-	
+
 	@Autowired
-	public CurriculumVitaeManager(CurriculumVitaeDao curriculumVitaeDao, CloudinaryUploadService cloudinaryUploadService) {
+	public CurriculumVitaeManager(CurriculumVitaeDao curriculumVitaeDao,
+			CloudinaryUploadService cloudinaryUploadService) {
 		this.curriculumVitaeDao = curriculumVitaeDao;
 		this.cloudinaryUploadService = cloudinaryUploadService;
 	}
 
 	@Override
 	public DataResult<List<CurriculumVitae>> getAll() {
-		return new SuccessDataResult<List<CurriculumVitae>>("Curriculum Vitaes listed succesfully.", this.curriculumVitaeDao.findAll());
+		return new SuccessDataResult<List<CurriculumVitae>>("Curriculum Vitaes listed succesfully.",
+				this.curriculumVitaeDao.findAll());
 	}
 
 	@Override
 	public DataResult<CurriculumVitae> get(int id) {
-		return new SuccessDataResult<CurriculumVitae>("Curriculum Vitae got succesfully.", this.curriculumVitaeDao.findById(id).get());
+		return new SuccessDataResult<CurriculumVitae>("Curriculum Vitae got succesfully.",
+				this.curriculumVitaeDao.findById(id).get());
 	}
 
 	@Override
@@ -55,10 +58,11 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 		this.curriculumVitaeDao.save(language);
 		return new SuccessResult("Curriculum Vitae updated succesfully.");
 	}
-	
+
 	@Override
 	public DataResult<List<CurriculumVitae>> getAllByJobSeekerId(int id) {
-		return new SuccessDataResult<List<CurriculumVitae>>("The jobseeker's curriculum vitaes listed succesfully.", this.curriculumVitaeDao.findByJobSeeker_id(id));
+		return new SuccessDataResult<List<CurriculumVitae>>("The jobseeker's curriculum vitaes listed succesfully.",
+				this.curriculumVitaeDao.findByJobSeeker_id(id));
 	}
 
 	@Override
@@ -68,10 +72,13 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 		if ((object == null)) {
 			if (!file.exists()) {
 				return new ErrorDataResult<String>("Failed to load photo! File not exists.", null);
-			} else if(!file.canRead()) {
+			} else if (!file.canRead()) {
 				return new ErrorDataResult<String>("Failed to load photo! Not readable file.", null);
+			} else {
+				return new ErrorDataResult<String>("Failed to load photo! Not found image.",
+						String.valueOf(file.exists()) + String.valueOf(file.canRead()) + file.getAbsolutePath());
 			}
-			return new ErrorDataResult<String>("Failed to load photo! Not found image.", String.valueOf(file.exists()) +  String.valueOf(file.canRead()) + file.getAbsolutePath());
+
 		} else if (!this.curriculumVitaeDao.existsById(id)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);
 		} else {
@@ -82,5 +89,5 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 			return new SuccessDataResult<String>("Photo upload successfully.", secure_url);
 		}
 	}
-	
+
 }

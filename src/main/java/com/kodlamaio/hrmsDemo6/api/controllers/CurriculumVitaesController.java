@@ -66,7 +66,7 @@ public class CurriculumVitaesController {
 	
 	@PostMapping("/uploadphoto")
 	public ResponseEntity<?> uploadPhoto(@RequestParam(name = "id") Integer id,
-			@RequestParam(name = "filePath") MultipartFile file) {
+			@RequestParam(name = "file") MultipartFile file) {
 		return ResponseEntity.ok(this.curriculumVitaeService.uploadPhoto(id, file));
 	}
 	

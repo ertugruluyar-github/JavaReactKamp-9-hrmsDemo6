@@ -67,7 +67,7 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
 	@Override
 	public DataResult<String> uploadPhoto(int id, MultipartFile file) {
-	    if (!file.getResource().toString().startsWith("image")) {
+	    if (!file.getContentType().toString().startsWith("image")) {
 	    	return new ErrorDataResult<String>("Failed to load photo! The file is not an image.", file.getContentType());
 	    } else if (!this.curriculumVitaeDao.existsById(id)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", file.getContentType());

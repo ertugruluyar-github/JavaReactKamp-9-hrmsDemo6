@@ -71,9 +71,11 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
 		if ((object == null)) {
 			if (!file.exists()) {
-				return new ErrorDataResult<String>("Failed to load photo! File not exists.", null);
+				return new ErrorDataResult<String>("Failed to load photo! File not exists.",
+						String.valueOf(file.exists()) + String.valueOf(file.canRead()) + file.getAbsolutePath());
 			} else if (!file.canRead()) {
-				return new ErrorDataResult<String>("Failed to load photo! Not readable file.", null);
+				return new ErrorDataResult<String>("Failed to load photo! Not readable file.",
+						String.valueOf(file.exists()) + String.valueOf(file.canRead()) + file.getAbsolutePath());
 			} else {
 				return new ErrorDataResult<String>("Failed to load photo! Not found image.",
 						String.valueOf(file.exists()) + String.valueOf(file.canRead()) + file.getAbsolutePath());

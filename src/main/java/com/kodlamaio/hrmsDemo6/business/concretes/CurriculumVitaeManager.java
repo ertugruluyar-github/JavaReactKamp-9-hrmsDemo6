@@ -69,7 +69,7 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	public DataResult<String> uploadPhoto(int id, String filePath) {
 		File file = new File(filePath);
 		if (!file.exists()) {
-			file = new File("", filePath.substring(1));
+			file = new File(filePath.substring(1));
 		}
 		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
 		if ((object == null)) {

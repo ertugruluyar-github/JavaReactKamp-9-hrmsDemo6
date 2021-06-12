@@ -9,6 +9,7 @@ import com.kodlamaio.hrmsDemo6.business.abstracts.SchoolService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SchoolDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.School;
 
@@ -35,19 +36,19 @@ public class SchoolManager implements SchoolService {
 	@Override
 	public Result add(School school) {
 		this.schoolDao.save(school);
-		return new SuccessDataResult<School>("School added succesfully.");
+		return new SuccessResult("School added succesfully.");
 	}
 
 	@Override
 	public Result delete(int id) {
 		this.schoolDao.deleteById(id);
-		return new SuccessDataResult<School>("School deleted succesfully.");
+		return new SuccessResult("School deleted succesfully.");
 	}
 
 	@Override
 	public Result update(School school) {
 		this.schoolDao.save(school);
-		return new SuccessDataResult<School>("School updated succesfully.");
+		return new SuccessResult("School updated succesfully.");
 	}
 
 	@Override

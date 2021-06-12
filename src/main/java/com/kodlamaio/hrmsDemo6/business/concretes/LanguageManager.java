@@ -9,6 +9,7 @@ import com.kodlamaio.hrmsDemo6.business.abstracts.LanguageService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.LanguageDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.Language;
 
@@ -42,19 +43,19 @@ public class LanguageManager implements LanguageService {
 //			return new ErrorDataResult<Language>("Invalid language degree.");
 //		}
 		this.languageDao.save(language);
-		return new SuccessDataResult<Language>("Language added succesfully.");
+		return new SuccessResult("Language added succesfully.");
 	}
 
 	@Override
 	public Result delete(int id) {
 		this.languageDao.deleteById(id);
-		return new SuccessDataResult<Language>("Language deleted succesfully.");
+		return new SuccessResult("Language deleted succesfully.");
 	}
 
 	@Override
 	public Result update(Language language) {
 		this.languageDao.save(language);
-		return new SuccessDataResult<Language>("Language updated succesfully.");
+		return new SuccessResult("Language updated succesfully.");
 	}
 
 }

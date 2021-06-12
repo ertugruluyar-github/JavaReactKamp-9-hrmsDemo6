@@ -9,6 +9,7 @@ import com.kodlamaio.hrmsDemo6.business.abstracts.WorkExperienceService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.WorkExperienceDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.WorkExperience;
 
@@ -35,19 +36,19 @@ public class WorkExperienceManager implements WorkExperienceService {
 	@Override
 	public Result add(WorkExperience schoolDegree) {
 		this.workExperienceDao.save(schoolDegree);
-		return new SuccessDataResult<WorkExperience>("Work experience added succesfully.");
+		return new SuccessResult("Work experience added succesfully.");
 	}
 
 	@Override
 	public Result delete(int id) {
 		this.workExperienceDao.deleteById(id);
-		return new SuccessDataResult<WorkExperience>("Work experience deleted succesfully.");
+		return new SuccessResult("Work experience deleted succesfully.");
 	}
 
 	@Override
 	public Result update(WorkExperience schoolDegree) {
 		this.workExperienceDao.save(schoolDegree);
-		return new SuccessDataResult<WorkExperience>("Work experience updated succesfully.");
+		return new SuccessResult("Work experience updated succesfully.");
 	}
 	
 	@Override

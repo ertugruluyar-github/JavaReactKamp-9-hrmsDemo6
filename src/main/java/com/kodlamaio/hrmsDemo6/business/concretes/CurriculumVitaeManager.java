@@ -12,6 +12,7 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.CurriculumVitaeDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.CurriculumVitae;
 
@@ -40,19 +41,19 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	@Override
 	public Result add(CurriculumVitae language) {
 		this.curriculumVitaeDao.save(language);
-		return new SuccessDataResult<CurriculumVitae>("Curriculum Vitae added succesfully.");
+		return new SuccessResult("Curriculum Vitae added succesfully.");
 	}
 
 	@Override
 	public Result delete(int id) {
 		this.curriculumVitaeDao.deleteById(id);
-		return new SuccessDataResult<CurriculumVitae>("Curriculum Vitae deleted succesfully.");
+		return new SuccessResult("Curriculum Vitae deleted succesfully.");
 	}
 
 	@Override
 	public Result update(CurriculumVitae language) {
 		this.curriculumVitaeDao.save(language);
-		return new SuccessDataResult<CurriculumVitae>("Curriculum Vitae updated succesfully.");
+		return new SuccessResult("Curriculum Vitae updated succesfully.");
 	}
 	
 	@Override
@@ -63,9 +64,14 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 	@Override
 	public DataResult<String> uploadPhoto(int id, String filePath) {
 		File file = new File(filePath);
+		if (!file.exists()) {
+			return new ErrorDataResult<String>("Failed to load photo! File not exists.", null);
+		} else if(!file.canRead()) {
+			return new ErrorDataResult<String>("Failed to load photo! Not readable file.", null);
+		}
 		Object object = this.cloudinaryUploadService.upload(file).get("secure_url");
 		if ((object == null)) {
-			return new ErrorDataResult<String>("Failed to load photo! Not found image.", null);
+			return new ErrorDataResult<String>("Failed to load photo! Not found image.", String.valueOf(file.exists()) +  String.valueOf(file.canRead()) + file.getAbsolutePath());
 			
 		} else if (!this.curriculumVitaeDao.existsById(id)) {
 			return new ErrorDataResult<String>("Failed to load photo! Not found curriculum vitae.", null);

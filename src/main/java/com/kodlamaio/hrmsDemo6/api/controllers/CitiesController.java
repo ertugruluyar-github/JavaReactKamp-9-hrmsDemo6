@@ -49,6 +49,11 @@ public class CitiesController {
 		return ResponseEntity.ok(this.cityService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.cityService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody City city) {
 		return ResponseEntity.ok(this.cityService.add(city));

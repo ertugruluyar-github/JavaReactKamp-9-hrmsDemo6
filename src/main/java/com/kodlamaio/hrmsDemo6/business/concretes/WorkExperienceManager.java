@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.WorkExperienceService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -30,7 +31,12 @@ public class WorkExperienceManager implements WorkExperienceService {
 
 	@Override
 	public DataResult<WorkExperience> get(int id) {
-		return new SuccessDataResult<WorkExperience>("Work experience got succesfully.", this.workExperienceDao.findById(id).get());
+		if (this.workExperienceDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<WorkExperience>("The specified Work experience was found successfully.",
+					this.workExperienceDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<WorkExperience>("The specified Work experience is not available.");
+		}
 	}
 
 	@Override

@@ -47,6 +47,11 @@ private PhoneNumberService phoneNumberService;
 	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(this.phoneNumberService.getAll());
 	}
+	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.phoneNumberService.get(id));
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody PhoneNumber phoneNumber) {

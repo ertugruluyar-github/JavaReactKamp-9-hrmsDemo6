@@ -37,8 +37,12 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
 	@Override
 	public DataResult<CurriculumVitae> get(int id) {
-		return new SuccessDataResult<CurriculumVitae>("Curriculum Vitae got succesfully.",
-				this.curriculumVitaeDao.findById(id).get());
+		if (this.curriculumVitaeDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<CurriculumVitae>("The specified Curriculum Vitae was found successfully.",
+					this.curriculumVitaeDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<CurriculumVitae>("The specified Curriculum Vitae is not available.");
+		}
 	}
 
 	@Override

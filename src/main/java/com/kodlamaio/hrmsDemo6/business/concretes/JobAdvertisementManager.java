@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.JobAdvertisementService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -59,6 +60,26 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(int id) {
 		return new SuccessDataResult<List<JobAdvertisement>>("The employer's active job advertisements listed successfully.", this.jobAdvertisementDao.findByActiveTrueAndEmployer_Id(id));
+	}
+	
+	@Override
+	public DataResult<JobAdvertisement> get(int id) {
+		if (this.jobAdvertisementDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<JobAdvertisement>("The specified job advertisement was found successfully.",
+					this.jobAdvertisementDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<JobAdvertisement>("The specified job advertisement is not available.");
+		}
+	}
+	
+	@Override
+	public DataResult<List<JobAdvertisement>> getByActivatedAndWorkingTimeType(String type) {
+		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed by WorkingTimeType successfully.", this.jobAdvertisementDao.findByActiveTrueAndWorkingTimeType_Type(type));
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getByActivatedAndWorkingPlaceType(String type) {
+		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed by WorkingPlaceType successfully.", this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_Type(type));
 	}
 
 	@Override

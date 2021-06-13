@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.TechnologyKnowledgeService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -30,7 +31,12 @@ public class TechnologyKnowledgeManager implements TechnologyKnowledgeService {
 
 	@Override
 	public DataResult<TechnologyKnowledge> get(int id) {
-		return new SuccessDataResult<TechnologyKnowledge>("Technology Knowledge got succesfully.", this.technologyKnowledgeDao.findById(id).get());
+		if (this.technologyKnowledgeDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<TechnologyKnowledge>("The specified Technology Knowledge was found successfully.",
+					this.technologyKnowledgeDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<TechnologyKnowledge>("The specified Technology Knowledge is not available.");
+		}
 	}
 
 	@Override

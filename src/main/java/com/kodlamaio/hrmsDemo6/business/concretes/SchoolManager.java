@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.SchoolService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -30,7 +31,12 @@ public class SchoolManager implements SchoolService {
 
 	@Override
 	public DataResult<School> get(int id) {
-		return new SuccessDataResult<School>("School got succesfully.", this.schoolDao.findById(id).get());
+		if (this.schoolDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<School>("The specified school was found successfully.",
+					this.schoolDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<School>("The specified school is not available.");
+		}
 	}
 
 	@Override

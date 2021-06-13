@@ -11,4 +11,5 @@ public interface CityService {
 	Result add(City city);
 	Result delete(int id);
 	Result update(City city);
+	DataResult<City> get(int id);
 }

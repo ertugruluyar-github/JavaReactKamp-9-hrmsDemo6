@@ -43,6 +43,11 @@ public class LanguagesController {
 		return ResponseEntity.ok(this.languageService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.languageService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody Language language) {
 		return ResponseEntity.ok(this.languageService.add(language));

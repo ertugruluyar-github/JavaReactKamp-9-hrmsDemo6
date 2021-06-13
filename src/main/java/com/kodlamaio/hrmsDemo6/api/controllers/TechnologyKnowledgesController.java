@@ -43,6 +43,11 @@ public class TechnologyKnowledgesController {
 		return ResponseEntity.ok(this.technologyKnowledgeService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.technologyKnowledgeService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody TechnologyKnowledge technologyKnowledge) {
 		return ResponseEntity.ok(this.technologyKnowledgeService.add(technologyKnowledge));

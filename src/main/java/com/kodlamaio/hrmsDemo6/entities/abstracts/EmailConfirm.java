@@ -33,6 +33,10 @@ public abstract class EmailConfirm extends Confirm {
 	@Column(name="date_of_confirm")
 	@NotNull
 	@PastOrPresent
-	private LocalDate dateOfConfirm;
+	private LocalDate dateOfConfirm = LocalDate.now();
+	
+	public void setDateOfConfirm(LocalDate dateOfConfirm) {
+		this.dateOfConfirm = LocalDate.now();
+	}
 	
 }

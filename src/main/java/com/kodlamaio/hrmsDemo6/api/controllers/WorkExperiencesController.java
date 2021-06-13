@@ -43,6 +43,11 @@ public class WorkExperiencesController {
 		return ResponseEntity.ok(this.workExperienceService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.workExperienceService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody WorkExperience workExperience) {
 		return ResponseEntity.ok(this.workExperienceService.add(workExperience));

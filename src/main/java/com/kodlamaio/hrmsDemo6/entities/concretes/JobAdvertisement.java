@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
@@ -67,7 +68,7 @@ public class JobAdvertisement {
 	private EmployeePosition employeePosition;
 	
 	// Default olarak sütun ismini, field adı(city) ile City'nin primary key adını(id)
-	// "_" ile birleştirerek city_id şeklinde oluşturur. Ekstra bu adı düzenlemek için JoinColumn'a ihitaç yoktur.
+	// "_" ile birleştirerek city_id şeklinde oluşturur. Ekstra bu adı düzenlemek için JoinColumn'a ihtiyaç yoktur.
 	@ManyToOne//(cascade = CascadeType.PERSIST)// JobAdvertisement kaydedince City'yi de otomatik kaydeder.
 	private City city;
 	// Henüz sistemde hazır kayıtlı şehirler olmadığı için iş ilanı kaydederken otoatik city'yi de kaydetmesi için cascade koyulabilir.
@@ -80,6 +81,13 @@ public class JobAdvertisement {
 	// Henüz sistemde hazır kayıtlı işverenler olmadığı için iş ilanı kaydederken otoatik employer'ı da kaydetmesi için cascade koyulabilir.
 	// iş veren, sisteme yeni iş ilanı eklerken zaten kayıtlı olacağı için bu cascade kaldırılır sonra.
 	
+	@ManyToOne
+	@JoinColumn(name = "working_place_type_id")
+	private WorkingPlaceType workingPlaceType;
+	
+	@ManyToOne
+	@JoinColumn(name = "working_time_type_id")
+	private WorkingTimeType workingTimeType;
 	
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = LocalDate.now();

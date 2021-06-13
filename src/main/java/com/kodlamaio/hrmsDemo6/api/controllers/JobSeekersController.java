@@ -43,6 +43,11 @@ public class JobSeekersController {
 		return ResponseEntity.ok(this.jobSeekerService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.jobSeekerService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody JobSeeker jobSeeker) {
 		return ResponseEntity.ok(this.jobSeekerService.add(jobSeeker));

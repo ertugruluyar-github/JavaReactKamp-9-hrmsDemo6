@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.CityService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -26,6 +27,16 @@ public class CityManager implements CityService {
 	@Override
 	public DataResult<List<City>> getAll() {
 		return new SuccessDataResult<List<City>>("Cities listed succesfully.", this.cityDao.findAll());
+	}
+	
+	@Override
+	public DataResult<City> get(int id) {
+		if (this.cityDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<City>("The specified city was found successfully.",
+					this.cityDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<City>("The specified city is not available.");
+		}
 	}
 	
 	@Override

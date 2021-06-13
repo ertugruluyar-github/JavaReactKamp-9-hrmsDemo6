@@ -43,6 +43,11 @@ public class SystemEmployeesController {
 		return ResponseEntity.ok(this.systemEmployeeService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.systemEmployeeService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody SystemEmployee systemEmployee) {
 		return ResponseEntity.ok(this.systemEmployeeService.add(systemEmployee));

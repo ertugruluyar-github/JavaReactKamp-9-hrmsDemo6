@@ -73,6 +73,21 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndEmployerId(id));
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.jobAdvertisementService.get(id));
+	}
+	
+	@GetMapping("/getbyactivatedandworkingtimetype")
+	public ResponseEntity<?> getByActivatedAndWorkingTimeType(@RequestParam(name = "type") String type) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndWorkingTimeType(type));
+	}
+	
+	@GetMapping("/getbyactivatedandworkingplacetype")
+	public ResponseEntity<?> getByActivatedAndWorkingPlaceType(@RequestParam(name = "type") String type) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndWorkingPlaceType(type));
+	}
+	
 	@GetMapping("/activatejobadvertisement")
 	public ResponseEntity<?> activateJobAdvertisement(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.jobAdvertisementService.activateJobAdvertisement(id));

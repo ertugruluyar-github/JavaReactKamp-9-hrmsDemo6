@@ -15,6 +15,9 @@ public interface JobAdvertisementService {
 	DataResult<List<JobAdvertisement>> getByActivatedOrderByReleaseDateAsc();
 	DataResult<List<JobAdvertisement>> getByActivatedOrderByApplicationDeadlineAsc();
 	DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(int id);
+	DataResult<JobAdvertisement> get(int id);
+	DataResult<List<JobAdvertisement>> getByActivatedAndWorkingTimeType(String type);
+	DataResult<List<JobAdvertisement>> getByActivatedAndWorkingPlaceType(String type);
 	
 	Result activateJobAdvertisement(int id);
 	Result deactivateJobAdvertisement(int id);

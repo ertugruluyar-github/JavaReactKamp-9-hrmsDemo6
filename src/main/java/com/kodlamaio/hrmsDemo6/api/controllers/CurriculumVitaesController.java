@@ -44,6 +44,11 @@ public class CurriculumVitaesController {
 		return ResponseEntity.ok(this.curriculumVitaeService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.curriculumVitaeService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody CurriculumVitae curriculumVitae) {
 		return ResponseEntity.ok(this.curriculumVitaeService.add(curriculumVitae));

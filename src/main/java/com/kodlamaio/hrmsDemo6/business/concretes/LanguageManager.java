@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.LanguageService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -30,7 +31,12 @@ public class LanguageManager implements LanguageService {
 
 	@Override
 	public DataResult<Language> get(int id) {
-		return new SuccessDataResult<Language>("Language got succesfully.", this.languageDao.findById(id).get());
+		if (this.languageDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<Language>("The specified language was found successfully.",
+					this.languageDao.findById(id).get());
+		} else {
+			return new ErrorDataResult<Language>("The specified language is not available.");
+		}
 	}
 
 	@Override

@@ -43,6 +43,11 @@ public class SchoolsController {
 		return ResponseEntity.ok(this.schoolService.getAll());
 	}
 	
+	@GetMapping("/get")
+	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.schoolService.get(id));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody School school) {
 		return ResponseEntity.ok(this.schoolService.add(school));

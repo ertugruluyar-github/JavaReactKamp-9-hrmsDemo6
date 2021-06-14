@@ -29,8 +29,8 @@ public class EmailConfirmToJobSeekerManager implements EmailConfirmToJobSeekerSe
 	}
 
 	@Override
-	public DataResult<EmailConfirmToJobSeeker> getByEmployerId(int id) {
-		return new SuccessDataResult<EmailConfirmToJobSeeker>("The email confirm to job seeker got successfully.", this.emailConfirmToJobSeekerDao.findByEmployer_Id(id));
+	public DataResult<EmailConfirmToJobSeeker> getByJobSeekerId(int id) {
+		return new SuccessDataResult<EmailConfirmToJobSeeker>("The email confirm to job seeker got successfully.", this.emailConfirmToJobSeekerDao.findByJobSeeker_Id(id));
 	}
 
 	@Override

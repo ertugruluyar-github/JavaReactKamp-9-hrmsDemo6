@@ -48,6 +48,11 @@ public class WorkingTimeTypesController {
 		return ResponseEntity.ok(this.workingTimeTypeService.get(id));
 	}
 	
+	@GetMapping("/getallbytype")
+	public ResponseEntity<?> getAllByType(@RequestParam(name = "type") String type) {
+		return ResponseEntity.ok(this.workingTimeTypeService.getAllByType(type));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody WorkingTimeType workingTimeType) {
 		return ResponseEntity.ok(this.workingTimeTypeService.add(workingTimeType));

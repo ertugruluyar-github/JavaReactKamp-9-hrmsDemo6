@@ -48,6 +48,11 @@ public class WorkingPlaceTypesController {
 		return ResponseEntity.ok(this.workingPlaceTypeService.get(id));
 	}
 	
+	@GetMapping("/getallbytype")
+	public ResponseEntity<?> getAllByType(@RequestParam(name = "type") String type) {
+		return ResponseEntity.ok(this.workingPlaceTypeService.getAllByType(type));
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody WorkingPlaceType workingPlaceType) {
 		return ResponseEntity.ok(this.workingPlaceTypeService.add(workingPlaceType));

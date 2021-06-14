@@ -50,7 +50,7 @@ public class SystemEmployeeConfirmsToJobAdvertisementController {
 	
 	@GetMapping("/getbyemployerid")
 	public ResponseEntity<?> getByEmployerId(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService.getByEmployerId(id));
+		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService.getByJobAdvertisementId(id));
 	}
 	
 	@PostMapping("/add")

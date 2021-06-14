@@ -8,7 +8,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.EmailConfirmToJobSeeker;
 
 public interface EmailConfirmToJobSeekerService {
 	DataResult<List<EmailConfirmToJobSeeker>> getAll();
-	DataResult<EmailConfirmToJobSeeker> getByEmployerId(int id);
+	DataResult<EmailConfirmToJobSeeker> getByJobSeekerId(int id);
 	
 	Result add(EmailConfirmToJobSeeker emailConfirmToJobSeeker);
 	Result delete(int id);

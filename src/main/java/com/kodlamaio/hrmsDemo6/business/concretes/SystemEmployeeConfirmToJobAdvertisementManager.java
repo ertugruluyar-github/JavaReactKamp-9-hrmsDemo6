@@ -44,7 +44,7 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	}
 
 	@Override
-	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getByEmployerId(int id) {
+	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getByJobAdvertisementId(int id) {
 		return new SuccessDataResult<SystemEmployeeConfirmToJobAdvertisement>("The system employee confirm to job advertisement got by employer id successfully.", this.systemEmployeeConfirmToJobAdvertisementDao.findByJobAdvertisement_Id(id));
 	}
 

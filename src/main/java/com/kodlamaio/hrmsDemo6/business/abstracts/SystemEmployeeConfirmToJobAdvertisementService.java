@@ -8,7 +8,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToJobAdve
 
 public interface SystemEmployeeConfirmToJobAdvertisementService {
 	DataResult<List<SystemEmployeeConfirmToJobAdvertisement>> getAll();
-	DataResult<SystemEmployeeConfirmToJobAdvertisement> getByEmployerId(int id);
+	DataResult<SystemEmployeeConfirmToJobAdvertisement> getByJobAdvertisementId(int id);
 	
 	Result add(SystemEmployeeConfirmToJobAdvertisement systemEmployeeConfirmToJobAdvertisement);
 	Result delete(int id);

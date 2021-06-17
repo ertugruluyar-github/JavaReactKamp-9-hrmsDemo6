@@ -44,10 +44,10 @@ public class JobAdvertisement {
 	@Positive
 	private int maxSalary;
 	
-	@Column(name="number_of_open_position", nullable = false)// zorunlu
+	@Column(name="number_of_position", nullable = false)// zorunlu
 	@NotNull
 	@Positive
-	private short numberOfOpenPosition;
+	private short numberOfPosition;
 	
 	@Column(name="application_deadline")
 	@Future

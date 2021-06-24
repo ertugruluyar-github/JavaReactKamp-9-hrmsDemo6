@@ -63,6 +63,12 @@ public class JobSeekersController {
 		return ResponseEntity.ok(this.jobSeekerService.update(jobSeeker));
 	}
 	
+	@PutMapping("/likejobadvertisement")
+	public ResponseEntity<?> likeJobAdvertisement(@RequestParam(name = "jobSeekerId") int jobSeekerId,
+			@RequestParam(name = "jobAdvertisementId") int jobAdvertisementId) {
+		return ResponseEntity.ok(this.jobSeekerService.likeJobAdvertisement(jobSeekerId, jobAdvertisementId));
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {

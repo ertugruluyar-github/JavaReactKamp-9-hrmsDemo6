@@ -1,6 +1,7 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
@@ -15,6 +17,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -88,6 +92,10 @@ public class JobAdvertisement {
 	@ManyToOne
 	@JoinColumn(name = "working_time_type_id")
 	private WorkingTimeType workingTimeType;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "favouriteJobAdvertisements")
+	private List<JobSeeker> jobSeekersWhoLikeIt;
 	
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = LocalDate.now();

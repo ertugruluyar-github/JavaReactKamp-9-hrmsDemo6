@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kodlamaio.hrmsDemo6.business.abstracts.JobAdvertisementService;
 import com.kodlamaio.hrmsDemo6.business.abstracts.JobSeekerService;
 import com.kodlamaio.hrmsDemo6.core.adapters.abstracts.JobSeekerValidationService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
@@ -16,25 +17,28 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.core.validators.emailRegex.abstracts.JobSeekerEmailRegexValidatorService;
 import com.kodlamaio.hrmsDemo6.core.validators.emailVerify.abstracts.JobSeekerEmailVerifyService;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.JobSeekerDao;
+import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
 import com.kodlamaio.hrmsDemo6.entities.concretes.JobSeeker;
 
 @Service
 public class JobSeekerManager implements JobSeekerService {
-	
+
 	private JobSeekerDao jobSeekerDao;
 	private JobSeekerEmailRegexValidatorService jobSeekerEmailRegexValidatorService;
 	private JobSeekerValidationService jobSeekerValidationService;
 	private JobSeekerEmailVerifyService jobSeekerEmailVerifyService;
-	
+	private JobAdvertisementService jobAdvertisementService;
+
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao,
 			JobSeekerEmailRegexValidatorService jobSeekerEmailRegexValidatorService,
-			JobSeekerValidationService jobSeekerValidationService, 
-			JobSeekerEmailVerifyService jobSeekerEmailVerifyService) {
+			JobSeekerValidationService jobSeekerValidationService,
+			JobSeekerEmailVerifyService jobSeekerEmailVerifyService, JobAdvertisementService jobAdvertisementService) {
 		this.jobSeekerDao = jobSeekerDao;
 		this.jobSeekerEmailRegexValidatorService = jobSeekerEmailRegexValidatorService;
 		this.jobSeekerValidationService = jobSeekerValidationService;
 		this.jobSeekerEmailVerifyService = jobSeekerEmailVerifyService;
+		this.jobAdvertisementService = jobAdvertisementService;
 	}
 
 	@Override
@@ -44,8 +48,9 @@ public class JobSeekerManager implements JobSeekerService {
 
 	@Override
 	public DataResult<JobSeeker> get(int id) {
-		if (this.jobSeekerDao.findById(id).orElse(null) != null ) {
-			return new SuccessDataResult<JobSeeker>("The specified jobseeker was found successfully.", this.jobSeekerDao.findById(id).get());
+		if (this.jobSeekerDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<JobSeeker>("The specified jobseeker was found successfully.",
+					this.jobSeekerDao.findById(id).get());
 		} else {
 			return new ErrorDataResult<JobSeeker>("The specified jobseeker is not available.");
 		}
@@ -89,6 +94,17 @@ public class JobSeekerManager implements JobSeekerService {
 	@Override
 	public boolean existsJobSeekerByEmail(String email) {
 		return this.jobSeekerDao.existsJobSeekerByEmail(email);
+	}
+
+	@Override
+	public Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId) {
+		JobSeeker currentJobSeeker = this.jobSeekerDao.findById(jobSeekerId).get();
+		List<JobAdvertisement> currentFavouriteJobAdvertisements = currentJobSeeker.getFavouriteJobAdvertisements();
+		JobAdvertisement newFavouriteJobAdvertisement = this.jobAdvertisementService.get(jobAdvertisementId).getData();
+		currentFavouriteJobAdvertisements.add(newFavouriteJobAdvertisement);
+		currentJobSeeker.setFavouriteJobAdvertisements(currentFavouriteJobAdvertisements);
+		this.jobSeekerDao.save(currentJobSeeker);//updated jobSeeker
+		return new SuccessResult("Jobseeker liked job advertisement successfully.");
 	}
 
 //	@Override

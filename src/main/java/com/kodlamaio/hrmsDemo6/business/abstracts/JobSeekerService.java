@@ -14,5 +14,5 @@ public interface JobSeekerService {
 	Result update(JobSeeker jobSeeker);
 	boolean existsJobSeekerByNationalityId(String nationalityId);
 	boolean existsJobSeekerByEmail(String email);
-	//boolean hasEmptyField(JobSeeker jobSeeker);
+	Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
 }

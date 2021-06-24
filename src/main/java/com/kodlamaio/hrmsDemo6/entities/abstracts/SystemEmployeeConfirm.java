@@ -34,7 +34,7 @@ public abstract class SystemEmployeeConfirm extends Confirm {
 	@Column(name="is_confirm", nullable = false)
 	@NotNull
 	@NotBlank
-	private boolean isConfirm;
+	private boolean isConfirm = false;
 	
 	@Column(name="date_of_confirm")
 	@NotNull

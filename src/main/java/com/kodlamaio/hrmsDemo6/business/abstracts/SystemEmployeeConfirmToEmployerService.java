@@ -8,9 +8,12 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToEmploye
 
 public interface SystemEmployeeConfirmToEmployerService {
 	DataResult<List<SystemEmployeeConfirmToEmployer>> getAll();
+	DataResult<SystemEmployeeConfirmToEmployer> get(int id);
 	DataResult<SystemEmployeeConfirmToEmployer> getByEmployerId(int id);
 	
 	Result add(SystemEmployeeConfirmToEmployer systemEmployeeConfirmToEmployer);
 	Result delete(int id);
 	Result update(SystemEmployeeConfirmToEmployer systemEmployeeConfirmToEmployer);
+	Result confirmEmployer(int employerId);
+	
 }

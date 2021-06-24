@@ -15,7 +15,6 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.core.validators.emailRegex.abstracts.JobSeekerEmailRegexValidatorService;
-import com.kodlamaio.hrmsDemo6.core.validators.emailVerify.abstracts.JobSeekerEmailVerifyService;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.JobSeekerDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
 import com.kodlamaio.hrmsDemo6.entities.concretes.JobSeeker;
@@ -26,18 +25,16 @@ public class JobSeekerManager implements JobSeekerService {
 	private JobSeekerDao jobSeekerDao;
 	private JobSeekerEmailRegexValidatorService jobSeekerEmailRegexValidatorService;
 	private JobSeekerValidationService jobSeekerValidationService;
-	private JobSeekerEmailVerifyService jobSeekerEmailVerifyService;
 	private JobAdvertisementService jobAdvertisementService;
 
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao,
 			JobSeekerEmailRegexValidatorService jobSeekerEmailRegexValidatorService,
-			JobSeekerValidationService jobSeekerValidationService,
-			JobSeekerEmailVerifyService jobSeekerEmailVerifyService, JobAdvertisementService jobAdvertisementService) {
+			JobSeekerValidationService jobSeekerValidationService, 
+			JobAdvertisementService jobAdvertisementService) {
 		this.jobSeekerDao = jobSeekerDao;
 		this.jobSeekerEmailRegexValidatorService = jobSeekerEmailRegexValidatorService;
 		this.jobSeekerValidationService = jobSeekerValidationService;
-		this.jobSeekerEmailVerifyService = jobSeekerEmailVerifyService;
 		this.jobAdvertisementService = jobAdvertisementService;
 	}
 
@@ -66,8 +63,6 @@ public class JobSeekerManager implements JobSeekerService {
 			return new ErrorResult("Invalid email!");
 		} else if (this.existsJobSeekerByEmail(jobSeeker.getEmail())) {
 			return new ErrorResult("There is a jobseeker record with this email.");
-		} else if (!this.jobSeekerEmailVerifyService.hasVerifyEmail(jobSeeker.getEmail())) {
-			return new ErrorResult("Email not verified!");
 		} else {
 			this.jobSeekerDao.save(jobSeeker);
 			return new SuccessResult("Jobseeker added successfully.");

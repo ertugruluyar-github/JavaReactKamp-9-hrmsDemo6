@@ -35,6 +35,9 @@ public class Employer extends User {
 	@NotBlank
 	private String webSite;
 	
+	@Column(name="employer_last_update")
+	private String employerLastUpdateJsonString;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "employer")
 	private List<JobAdvertisement> jobAdvertisements;

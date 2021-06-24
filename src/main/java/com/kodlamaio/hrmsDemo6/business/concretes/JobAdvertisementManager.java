@@ -3,6 +3,7 @@ package com.kodlamaio.hrmsDemo6.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.JobAdvertisementService;
@@ -80,6 +81,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public DataResult<List<JobAdvertisement>> getByActivatedAndWorkingPlaceType(String type) {
 		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed by WorkingPlaceType successfully.", this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_Type(type));
+	}
+	
+	@Override
+	public DataResult<List<JobAdvertisement>> getByActivatedWithPageable(Pageable pageable) {
+		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed with pageable successfully." , this.jobAdvertisementDao.findByActiveTrue(pageable));
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package com.kodlamaio.hrmsDemo6.business.abstracts;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
@@ -18,6 +20,7 @@ public interface JobAdvertisementService {
 	DataResult<JobAdvertisement> get(int id);
 	DataResult<List<JobAdvertisement>> getByActivatedAndWorkingTimeType(String type);
 	DataResult<List<JobAdvertisement>> getByActivatedAndWorkingPlaceType(String type);
+	DataResult<List<JobAdvertisement>> getByActivatedWithPageable(Pageable pageable);
 	
 	Result activateJobAdvertisement(int id);
 	Result deactivateJobAdvertisement(int id);

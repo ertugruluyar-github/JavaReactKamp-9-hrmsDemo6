@@ -92,7 +92,7 @@ public class JobAdvertisementsController {
 	
 	@GetMapping("/getbyactivatedwithpageable")
 	public ResponseEntity<?> getByActivatedWithPageable(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
-		Pageable allEntitiesWithPageable = PageRequest.of(pageNumber, pageSize);
+		Pageable allEntitiesWithPageable = PageRequest.of(pageNumber - 1, pageSize);
 		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedWithPageable(allEntitiesWithPageable));
 	}
 	

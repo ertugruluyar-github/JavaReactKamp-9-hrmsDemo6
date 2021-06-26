@@ -99,21 +99,6 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 
 	@Override
-	public DataResult<Boolean> existsByFavouriteJobAdvertisementsId(int id) {
-		boolean isExist = this.jobSeekerDao.existsByFavouriteJobAdvertisements_Id(id);
-		
-		if (isExist) {
-			return new SuccessDataResult<Boolean>(
-					"The job advertisement is exist in the jobseeker's favourite job advertisements.",
-					isExist);
-		} else {
-			return new ErrorDataResult<Boolean>(
-					"The job advertisement is not exist in the jobseeker's favourite job advertisements.",
-					isExist);
-		}
-	}
-
-	@Override
 	public Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId) {
 		JobSeeker currentJobSeeker = this.jobSeekerDao.findById(jobSeekerId).get();
 		List<JobAdvertisement> currentFavouriteJobAdvertisements = currentJobSeeker.getFavouriteJobAdvertisements();

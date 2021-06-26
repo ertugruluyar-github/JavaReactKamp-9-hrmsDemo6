@@ -19,7 +19,6 @@ public interface JobSeekerService {
 	
 	Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
 	Result dislikeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
-	DataResult<Boolean> existsByFavouriteJobAdvertisementsId(int id);
 	
 	DataResult<List<JobSeeker>> getAllByFavouriteJobAdvertisementsId(int id);
 }

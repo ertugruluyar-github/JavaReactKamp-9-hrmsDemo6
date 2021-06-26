@@ -9,6 +9,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.Language;
 public interface LanguageService {
 	DataResult<List<Language>> getAll();
 	DataResult<Language> get(int id);
+	
 	Result add(Language language);
 	Result delete(int id);
 	Result update(Language language);

@@ -41,6 +41,10 @@ public abstract class SystemEmployeeConfirm extends Confirm {
 	@PastOrPresent
 	private LocalDate dateOfConfirm = LocalDate.now();
 	
+	public SystemEmployeeConfirm(boolean isConfirm) {
+		this.isConfirm = isConfirm;
+	}
+	
 	public void setDateOfConfirm(LocalDate dateOfConfirm) {
 		this.dateOfConfirm = LocalDate.now();
 	}

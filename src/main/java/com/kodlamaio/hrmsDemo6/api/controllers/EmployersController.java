@@ -30,45 +30,44 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
 @RequestMapping("/api/employers")
 @CrossOrigin
 public class EmployersController {
-	
+
 	private EmployerService employerService;
-	
+
 	@Autowired
 	public EmployersController(EmployerService employerService) {
 		this.employerService = employerService;
 	}
-	
+
 	@GetMapping("/getall")
 	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(this.employerService.getAll());
 	}
-	
+
 	@GetMapping("/get")
 	public ResponseEntity<?> getAll(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.employerService.get(id));
 	}
-	
+
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody Employer employer) {
 		return ResponseEntity.ok(this.employerService.add(employer));
 	}
-	
+
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.employerService.delete(id));
 	}
-	
+
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@Valid @RequestBody Employer employer) {
-		return ResponseEntity.ok(this.employerService.add(employer));
+	public ResponseEntity<?> update(@Valid @RequestBody Employer employerLastUpdate) {
+		return ResponseEntity.ok(this.employerService.update(employerLastUpdate));
 	}
-	
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
 		Map<String, String> validationErrors = new HashMap<String, String>();
-		for (FieldError fieldError: exceptions.getBindingResult().getFieldErrors()) {
+		for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
 			validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
 		}
 		return new ErrorDataResult<Object>("Validation Errors", validationErrors);

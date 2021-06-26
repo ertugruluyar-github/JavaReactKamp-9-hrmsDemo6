@@ -14,6 +14,6 @@ public interface SchoolService {
 	Result update(School school);
 	
 	DataResult<List<School>> getAllOrderByEndDateDesc();
-	DataResult<List<School>> getByEndDateIsNull();
-	DataResult<List<School>> getByEndDateIsNotNullOrderByEndDateDesc();
+	DataResult<List<School>> getAllByEndDateIsNull();
+	DataResult<List<School>> getAllByEndDateIsNotNullOrderByEndDateDesc();
 }

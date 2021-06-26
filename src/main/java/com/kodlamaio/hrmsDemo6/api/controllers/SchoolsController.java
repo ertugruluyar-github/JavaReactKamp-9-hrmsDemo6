@@ -68,14 +68,14 @@ public class SchoolsController {
 		return ResponseEntity.ok(this.schoolService.getAllOrderByEndDateDesc());
 	}
 	
-	@GetMapping("/getbyenddateisnull")
-	public ResponseEntity<?> getByEndDateIsNull() {
-		return ResponseEntity.ok(this.schoolService.getByEndDateIsNull());
+	@GetMapping("/getallbyenddateisnull")
+	public ResponseEntity<?> getAllByEndDateIsNull() {
+		return ResponseEntity.ok(this.schoolService.getAllByEndDateIsNull());
 	}
 	
-	@GetMapping("/getbyenddateisnotnullorderbyenddatedesc")
-	public ResponseEntity<?> getByEndDateIsNotNullOrderByEndDateDesc() {
-		return ResponseEntity.ok(this.schoolService.getByEndDateIsNotNullOrderByEndDateDesc());
+	@GetMapping("/getallbyenddateisnotnullorderbyenddatedesc")
+	public ResponseEntity<?> getAllByEndDateIsNotNullOrderByEndDateDesc() {
+		return ResponseEntity.ok(this.schoolService.getAllByEndDateIsNotNullOrderByEndDateDesc());
 	}
 	
 	

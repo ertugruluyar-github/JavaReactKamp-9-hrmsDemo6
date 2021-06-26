@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kodlamaio.hrmsDemo6.business.abstracts.EmailConfirmToJobSeekerService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.entities.concretes.EmailConfirmToJobSeeker;
+import com.kodlamaio.hrmsDemo6.entities.concretes.JobSeeker;
 
 @RestController
 @RequestMapping("/api/emailconfirmstojobseeker")
@@ -48,9 +49,14 @@ public class EmailConfirmsToJobSeekerController {
 		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.get(id));
 	}
 	
-	@GetMapping("/getbyemployerid")
-	public ResponseEntity<?> getByEmployerId(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.getByJobSeekerId(id));
+	@GetMapping("/getallbyjobseekerid")
+	public ResponseEntity<?> getAllByJobSeekerId(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.getAllByJobSeekerId(id));
+	}
+	
+	@GetMapping("/getfirstbyjobseekeridorderbydateofconfirmdesc")
+	public ResponseEntity<?> getFirstByJobSeekerIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.getFirstByJobSeekerIdOrderByDateOfConfirmDesc(id));
 	}
 	
 	@PostMapping("/add")
@@ -69,8 +75,8 @@ public class EmailConfirmsToJobSeekerController {
 	}
 	
 	@PostMapping("/confirmemployer)")
-	public ResponseEntity<?> confirmEmployer(@RequestParam(name = "jobSeekerId") int jobSeekerId) {
-		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.confirmEmployer(jobSeekerId));
+	public ResponseEntity<?> confirmEmployer(@Valid @RequestBody JobSeeker jobSeeker) {
+		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.confirmEmployer(jobSeeker));
 	}
 	
 	

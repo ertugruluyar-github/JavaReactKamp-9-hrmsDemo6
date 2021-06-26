@@ -11,9 +11,12 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.CurriculumVitae;
 public interface CurriculumVitaeService {
 	DataResult<List<CurriculumVitae>> getAll();
 	DataResult<CurriculumVitae> get(int id);
+	
 	Result add(CurriculumVitae curriculumVitae);
 	Result delete(int id);
 	Result update(CurriculumVitae curriculumVitae);
+	
 	DataResult<List<CurriculumVitae>> getAllByJobSeekerId(int id);
+	
 	DataResult<String> uploadPhoto(int id, MultipartFile file);
 }

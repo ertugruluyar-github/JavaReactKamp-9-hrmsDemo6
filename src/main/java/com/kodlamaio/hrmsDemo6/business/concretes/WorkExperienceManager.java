@@ -63,12 +63,12 @@ public class WorkExperienceManager implements WorkExperienceService {
 	}
 
 	@Override
-	public DataResult<List<WorkExperience>> getByEndDateIsNull() {
+	public DataResult<List<WorkExperience>> getAllByEndDateIsNull() {
 		return new SuccessDataResult<List<WorkExperience>>("Work experiences in progress listed succesfully.", this.workExperienceDao.findByEndDateIsNull());
 	}
 
 	@Override
-	public DataResult<List<WorkExperience>> getByEndDateIsNotNullOrderByEndDateDesc() {
+	public DataResult<List<WorkExperience>> getAllByEndDateIsNotNullOrderByEndDateDesc() {
 		return new SuccessDataResult<List<WorkExperience>>("Finished work experiences listed and ordered by end date (Desc) succesfully.", this.workExperienceDao.findByEndDateIsNotNullOrderByEndDateDesc());
 	}
 	

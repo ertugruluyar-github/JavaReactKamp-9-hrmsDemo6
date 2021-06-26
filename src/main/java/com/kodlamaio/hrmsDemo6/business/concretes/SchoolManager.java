@@ -63,12 +63,12 @@ public class SchoolManager implements SchoolService {
 	}
 
 	@Override
-	public DataResult<List<School>> getByEndDateIsNull() {
+	public DataResult<List<School>> getAllByEndDateIsNull() {
 		return new SuccessDataResult<List<School>>("Schools in progress listed succesfully.", this.schoolDao.findByEndDateIsNull());
 	}
 
 	@Override
-	public DataResult<List<School>> getByEndDateIsNotNullOrderByEndDateDesc() {
+	public DataResult<List<School>> getAllByEndDateIsNotNullOrderByEndDateDesc() {
 		return new SuccessDataResult<List<School>>("Graduated schools listed and ordered by end date (Desc) succesfully.", this.schoolDao.findByEndDateIsNotNullOrderByEndDateDesc());
 	}
 

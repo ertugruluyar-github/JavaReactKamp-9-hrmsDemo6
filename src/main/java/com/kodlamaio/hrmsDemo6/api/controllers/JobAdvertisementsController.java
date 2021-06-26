@@ -55,24 +55,9 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.jobAdvertisementService.update(jobAdvertisement));
 	}
 	
-	@GetMapping("/getallactivated")
-	public ResponseEntity<?> getAllActivated() {
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivated());
-	}
-	
-	@GetMapping("/getallactivatedorderbyreleasedateasc")
-	public ResponseEntity<?> getByActivatedOrderByReleaseDateAsc() {
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedOrderByReleaseDateAsc());
-	}	
-
-	@GetMapping("/getallactivatedorderbyapplicationdeadlineasc")
-	public ResponseEntity<?> getByActivatedOrderByApplicationDeadlineAsc() {
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedOrderByApplicationDeadlineAsc());
-	}		
-	
-	@GetMapping("/getallactivatedandemployerid")
-	public ResponseEntity<?> getByActivatedAndEmployerId(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndEmployerId(id));
+	@GetMapping("/getall")
+	public ResponseEntity<?> getAll() {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAll());
 	}
 	
 	@GetMapping("/get")
@@ -80,20 +65,40 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.jobAdvertisementService.get(id));
 	}
 	
-	@GetMapping("/getbyactivatedandworkingtimetype")
-	public ResponseEntity<?> getByActivatedAndWorkingTimeType(@RequestParam(name = "type") String type) {
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndWorkingTimeType(type));
+	@GetMapping("/getallactivated")
+	public ResponseEntity<?> getAllActivated() {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivated());
 	}
 	
-	@GetMapping("/getbyactivatedandworkingplacetype")
-	public ResponseEntity<?> getByActivatedAndWorkingPlaceType(@RequestParam(name = "type") String type) {
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedAndWorkingPlaceType(type));
+	@GetMapping("/getallactivatedorderbyreleasedateasc")
+	public ResponseEntity<?> getAllByActivatedOrderByReleaseDateAsc() {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedOrderByReleaseDateAsc());
+	}	
+
+	@GetMapping("/getallactivatedorderbyapplicationdeadlineasc")
+	public ResponseEntity<?> getAllByActivatedOrderByApplicationDeadlineAsc() {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedOrderByApplicationDeadlineAsc());
+	}		
+	
+	@GetMapping("/getallactivatedandemployerid")
+	public ResponseEntity<?> getAllByActivatedAndEmployerId(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndEmployerId(id));
 	}
 	
-	@GetMapping("/getbyactivatedwithpageable")
-	public ResponseEntity<?> getByActivatedWithPageable(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+	@GetMapping("/getallbyactivatedandworkingtimetype")
+	public ResponseEntity<?> getAllByActivatedAndWorkingTimeType(@RequestParam(name = "type") String type) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingTimeType(type));
+	}
+	
+	@GetMapping("/getallbyactivatedandworkingplacetype")
+	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceType(@RequestParam(name = "type") String type) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceType(type));
+	}
+	
+	@GetMapping("/getallbyactivatedwithpageable")
+	public ResponseEntity<?> getAllByActivatedWithPageable(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		Pageable allEntitiesWithPageable = PageRequest.of(pageNumber - 1, pageSize);
-		return ResponseEntity.ok(this.jobAdvertisementService.getByActivatedWithPageable(allEntitiesWithPageable));
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedWithPageable(allEntitiesWithPageable));
 	}
 	
 	@GetMapping("/activatejobadvertisement")

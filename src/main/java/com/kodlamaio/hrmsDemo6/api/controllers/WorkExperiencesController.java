@@ -68,14 +68,14 @@ public class WorkExperiencesController {
 		return ResponseEntity.ok(this.workExperienceService.getAllOrderByEndDateDesc());
 	}
 	
-	@GetMapping("/getbyenddateisnull")
-	public ResponseEntity<?> getByEndDateIsNull() {
-		return ResponseEntity.ok(this.workExperienceService.getByEndDateIsNull());
+	@GetMapping("/getallbyenddateisnull")
+	public ResponseEntity<?> getAllByEndDateIsNull() {
+		return ResponseEntity.ok(this.workExperienceService.getAllByEndDateIsNull());
 	}
 	
-	@GetMapping("/getbyenddateisnotnullorderbyenddatedesc")
-	public ResponseEntity<?> getByEndDateIsNotNullOrderByEndDateDesc() {
-		return ResponseEntity.ok(this.workExperienceService.getByEndDateIsNotNullOrderByEndDateDesc());
+	@GetMapping("/getallbyenddateisnotnullorderbyenddatedesc")
+	public ResponseEntity<?> getAllByEndDateIsNotNullOrderByEndDateDesc() {
+		return ResponseEntity.ok(this.workExperienceService.getAllByEndDateIsNotNullOrderByEndDateDesc());
 	}
 	
 	

@@ -13,14 +13,18 @@ public interface JobAdvertisementService {
 	Result delete(int id);
 	Result update(JobAdvertisement jobAdvertisement);
 	
-	DataResult<List<JobAdvertisement>> getByActivated();
-	DataResult<List<JobAdvertisement>> getByActivatedOrderByReleaseDateAsc();
-	DataResult<List<JobAdvertisement>> getByActivatedOrderByApplicationDeadlineAsc();
-	DataResult<List<JobAdvertisement>> getByActivatedAndEmployerId(int id);
+	DataResult<List<JobAdvertisement>> getAll();
 	DataResult<JobAdvertisement> get(int id);
-	DataResult<List<JobAdvertisement>> getByActivatedAndWorkingTimeType(String type);
-	DataResult<List<JobAdvertisement>> getByActivatedAndWorkingPlaceType(String type);
-	DataResult<List<JobAdvertisement>> getByActivatedWithPageable(Pageable pageable);
+	DataResult<List<JobAdvertisement>> getAllByActivated();
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndEmployerId(int id);
+	
+	DataResult<List<JobAdvertisement>> getAllByActivatedOrderByReleaseDateAsc();
+	DataResult<List<JobAdvertisement>> getAllByActivatedOrderByApplicationDeadlineAsc();
+
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(String type);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(String type);
+	
+	DataResult<List<JobAdvertisement>> getAllByActivatedWithPageable(Pageable pageable);
 	
 	Result activateJobAdvertisement(int id);
 	Result deactivateJobAdvertisement(int id);

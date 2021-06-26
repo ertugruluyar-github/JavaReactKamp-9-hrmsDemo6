@@ -1,7 +1,5 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,8 +20,18 @@ public class SystemEmployeeConfirmToEmployer extends SystemEmployeeConfirm {
 	@OneToOne//Unidirectional
 	private Employer employer;
 	
-	public SystemEmployeeConfirmToEmployer(boolean isConfirm, LocalDate dateOfConfirm) {
-		super(isConfirm, dateOfConfirm);
+	public SystemEmployeeConfirmToEmployer(boolean isConfirm) {
+		super(isConfirm);
+	}
+	
+	public SystemEmployeeConfirmToEmployer(Employer employer) {
+		super(false);
+		this.employer = employer;
+	}
+	
+	public SystemEmployeeConfirmToEmployer(boolean isConfirm, Employer employer) {
+		super(isConfirm);
+		this.employer = employer;
 	}
 	
 }

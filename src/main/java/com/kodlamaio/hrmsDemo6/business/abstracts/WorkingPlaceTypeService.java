@@ -9,8 +9,10 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.WorkingPlaceType;
 public interface WorkingPlaceTypeService {
 	DataResult<List<WorkingPlaceType>> getAll();
 	DataResult<WorkingPlaceType> get(int id);
+	
 	Result add(WorkingPlaceType workingPlaceType);
 	Result delete(int id);
 	Result update(WorkingPlaceType workingPlaceType);
+	
 	DataResult<List<WorkingPlaceType>> getAllByType(String type);
 }

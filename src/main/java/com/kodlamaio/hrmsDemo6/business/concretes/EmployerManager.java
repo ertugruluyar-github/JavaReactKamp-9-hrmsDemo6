@@ -2,7 +2,6 @@ package com.kodlamaio.hrmsDemo6.business.concretes;
 
 import java.util.List;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,9 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.core.validators.emailRegex.abstracts.EmployerEmailRegexValidatorService;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.EmployerDao;
+import com.kodlamaio.hrmsDemo6.entities.concretes.EmailConfirmToEmployer;
 import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
+import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToEmployer;
 
 @Service
 public class EmployerManager implements EmployerService {
@@ -30,8 +31,8 @@ public class EmployerManager implements EmployerService {
 	@Autowired
 	public EmployerManager(EmployerDao employerDao,
 			EmployerEmailRegexValidatorService employerEmailRegexValidatorService,
-			 SystemEmployeeConfirmToEmployerService systemEmployeeConfirmToEmployerService,
-			 EmailConfirmToEmployerService emailConfirmToEmployerService) {
+			SystemEmployeeConfirmToEmployerService systemEmployeeConfirmToEmployerService,
+			EmailConfirmToEmployerService emailConfirmToEmployerService) {
 		this.employerDao = employerDao;
 		this.employerEmailRegexValidatorService = employerEmailRegexValidatorService;
 		this.systemEmployeeConfirmToEmployerService = systemEmployeeConfirmToEmployerService;
@@ -55,35 +56,42 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public Result add(Employer employer) {
-		if (!this.employerEmailRegexValidatorService.isValidEmail(employer.getEmail(),
-				employer.getWebSite())) {
+		if (!this.employerEmailRegexValidatorService.isValidEmail(employer.getEmail(), employer.getWebSite())) {
 			return new ErrorResult("Email must have the same domain as the web site.");
 		} else if (this.existsEmployerByEmail(employer.getEmail())) {
 			return new ErrorResult("There is an employer record with this email.");
 		} else {
 			this.employerDao.save(employer);
+			// default isConfirm=false
+			this.systemEmployeeConfirmToEmployerService.add(new SystemEmployeeConfirmToEmployer(employer));
+			this.emailConfirmToEmployerService.add(new EmailConfirmToEmployer(employer));
 			return new SuccessResult("Employer added successfully.");
 		}
 	}
 
 	@Override
 	public Result delete(int id) {
+		this.systemEmployeeConfirmToEmployerService.deleteByEmployerId(id);
+		this.emailConfirmToEmployerService.deleteByEmployerId(id);
 		this.employerDao.deleteById(id);
 		return new SuccessResult("Employer deleted successfully.");
 	}
 
 	@Override
 	public Result update(Employer employer) {
-		if (!this.systemEmployeeConfirmToEmployerService.getByEmployerId(employer.getId()).getData().isConfirm()) {
-			employer.setEmployerLastUpdateJsonString(new JSONObject(employer).toString());
-			return new ErrorResult("The employer has not been verified by the system!");
-		} else if (!this.emailConfirmToEmployerService.getByEmployerId(employer.getId()).getData().isConfirm()) {
+		SystemEmployeeConfirmToEmployer latestSystemEmployeeConfirm = this.systemEmployeeConfirmToEmployerService
+				.getFirstByEmployerIdOrderByDateOfConfirmDesc(employer.getId()).getData();
+		EmailConfirmToEmployer latestEmailConfirm = this.emailConfirmToEmployerService
+				.getFirstByEmployerIdOrderByDateOfConfirmDesc(employer.getId()).getData();
+		
+		if (!latestSystemEmployeeConfirm.isConfirm()) {
+			return new ErrorResult("The employer has not been verified by the system yet!");
+		} else if (!latestEmailConfirm.isConfirm()) {
 			return new ErrorResult("The employer's email has not been verified!");
 		} else {
 			this.employerDao.save(employer);
 			return new SuccessResult("Employer updated successfully.");
 		}
-		
 	}
 
 	@Override

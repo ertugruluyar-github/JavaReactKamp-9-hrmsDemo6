@@ -9,6 +9,7 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.TechnologyKnowledge;
 public interface TechnologyKnowledgeService {
 	DataResult<List<TechnologyKnowledge>> getAll();
 	DataResult<TechnologyKnowledge> get(int id);
+	
 	Result add(TechnologyKnowledge technologyKnowledge);
 	Result delete(int id);
 	Result update(TechnologyKnowledge technologyKnowledge);

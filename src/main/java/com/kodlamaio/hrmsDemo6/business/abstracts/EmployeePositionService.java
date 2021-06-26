@@ -9,8 +9,10 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.EmployeePosition;
 public interface EmployeePositionService {
 	DataResult<List<EmployeePosition>> getAll();
 	DataResult<EmployeePosition> get(int id);
+	
 	Result add(EmployeePosition employeePosition);
 	Result delete(int id);
 	Result update(EmployeePosition employeePosition);
+	
 	boolean existsEmployeePositionByPositionName(String positionName);
 }

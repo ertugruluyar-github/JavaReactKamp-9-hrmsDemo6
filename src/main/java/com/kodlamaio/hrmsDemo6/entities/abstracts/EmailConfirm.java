@@ -35,6 +35,10 @@ public abstract class EmailConfirm extends Confirm {
 	@PastOrPresent
 	private LocalDate dateOfConfirm = LocalDate.now();
 	
+	public EmailConfirm(boolean isConfirm) {
+		this.isConfirm = isConfirm;
+	}
+	
 	public void setDateOfConfirm(LocalDate dateOfConfirm) {
 		this.dateOfConfirm = LocalDate.now();
 	}

@@ -9,10 +9,16 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.JobSeeker;
 public interface JobSeekerService {
 	DataResult<List<JobSeeker>> getAll();
 	DataResult<JobSeeker> get(int id);
+	
 	Result add(JobSeeker jobSeeker);
 	Result delete(int id);
 	Result update(JobSeeker jobSeeker);
+	
 	boolean existsJobSeekerByNationalityId(String nationalityId);
 	boolean existsJobSeekerByEmail(String email);
+	
 	Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
+	Result dislikeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
+	
+	DataResult<List<JobSeeker>> getAllByFavouriteJobAdvertisementsId(int id);
 }

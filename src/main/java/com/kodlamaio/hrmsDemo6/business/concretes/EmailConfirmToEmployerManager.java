@@ -51,8 +51,8 @@ public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerServ
 			return new SuccessDataResult<List<EmailConfirmToEmployer>>(
 					"The specified email confirms to employer got by employer id successfully.", confirms);
 		} else {
-			return new ErrorDataResult<List<EmailConfirmToEmployer>>("The specified email confirms to employer are not available.",
-					confirms);
+			return new ErrorDataResult<List<EmailConfirmToEmployer>>(
+					"The specified email confirms to employer are not available.", confirms);
 		}
 	}
 
@@ -96,11 +96,11 @@ public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerServ
 
 	@Override
 	public Result confirmEmployer(Employer employer) {
-		EmailConfirmToEmployer confirm = new EmailConfirmToEmployer();
-		confirm.setEmployer(employer);
-		confirm.setConfirm(true);
-		this.emailConfirmToEmployerDao.save(confirm);
-		return new SuccessResult("Employer confirmed by email successfully.");
+		EmailConfirmToEmployer latestConfirm = this.emailConfirmToEmployerDao
+				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employer.getId());
+		latestConfirm.setConfirm(true);
+		this.emailConfirmToEmployerDao.save(latestConfirm);
+		return new SuccessResult("Employer's email confirmed successfully.");
 	}
 
 }

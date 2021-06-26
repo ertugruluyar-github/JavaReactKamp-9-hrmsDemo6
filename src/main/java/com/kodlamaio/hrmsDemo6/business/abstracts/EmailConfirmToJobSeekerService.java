@@ -18,6 +18,6 @@ public interface EmailConfirmToJobSeekerService {
 	Result deleteByJobSeekerId(int id);
 	Result update(EmailConfirmToJobSeeker emailConfirmToJobSeeker);
 	
-	Result confirmEmployer(JobSeeker jobSeeker);
+	Result confirmJobSeeker(JobSeeker jobSeeker);
 	
 }

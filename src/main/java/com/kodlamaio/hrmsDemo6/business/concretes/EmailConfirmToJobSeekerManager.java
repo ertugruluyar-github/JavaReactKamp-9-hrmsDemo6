@@ -95,12 +95,12 @@ public class EmailConfirmToJobSeekerManager implements EmailConfirmToJobSeekerSe
 	}
 
 	@Override
-	public Result confirmEmployer(JobSeeker jobSeeker) {
-		EmailConfirmToJobSeeker confirm = new EmailConfirmToJobSeeker();
-		confirm.setJobSeeker(jobSeeker);
-		confirm.setConfirm(true);
-		this.emailConfirmToJobSeekerDao.save(confirm);
-		return new SuccessResult("Job seeker confirmed by email successfully.");
+	public Result confirmJobSeeker(JobSeeker jobSeeker) {
+		EmailConfirmToJobSeeker latestConfirm = this.emailConfirmToJobSeekerDao
+				.findFirstByJobSeeker_IdOrderByDateOfConfirmDesc(jobSeeker.getId());
+		latestConfirm.setConfirm(true);
+		this.emailConfirmToJobSeekerDao.save(latestConfirm);
+		return new SuccessResult("Job seeker's email confirmed successfully.");
 	}
 
 }

@@ -52,7 +52,8 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 
 		if (!confirms.isEmpty()) {
 			return new SuccessDataResult<List<SystemEmployeeConfirmToJobAdvertisement>>(
-					"The specified system employee confirms to job advertisement got by job advertisement id successfully.", confirms);
+					"The specified system employee confirms to job advertisement got by job advertisement id successfully.",
+					confirms);
 		} else {
 			return new ErrorDataResult<List<SystemEmployeeConfirmToJobAdvertisement>>(
 					"The specified system employee confirms to job advertisement are not available.", confirms);
@@ -60,13 +61,15 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	}
 
 	@Override
-	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(int id) {
+	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(
+			int id) {
 		SystemEmployeeConfirmToJobAdvertisement confirm = this.systemEmployeeConfirmToJobAdvertisementDao
 				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(id);
-		
+
 		if (confirm != null) {
 			return new SuccessDataResult<SystemEmployeeConfirmToJobAdvertisement>(
-					"The system employee confirm to job advertisement got by job advertisement id successfully.", confirm);
+					"The system employee confirm to job advertisement got by job advertisement id successfully.",
+					confirm);
 		} else {
 			return new ErrorDataResult<SystemEmployeeConfirmToJobAdvertisement>(
 					"The system employee confirm to job advertisement is not available.", confirm);
@@ -100,10 +103,10 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 
 	@Override
 	public Result confirmJobAdvertisement(JobAdvertisement jobAdvertisement) {
-		SystemEmployeeConfirmToJobAdvertisement confirm = new SystemEmployeeConfirmToJobAdvertisement();
-		confirm.setJobAdvertisement(jobAdvertisement);
-		confirm.setConfirm(true);
-		this.systemEmployeeConfirmToJobAdvertisementDao.save(confirm);
+		SystemEmployeeConfirmToJobAdvertisement latestConfirm = this.systemEmployeeConfirmToJobAdvertisementDao
+				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(jobAdvertisement.getId());
+		latestConfirm.setConfirm(true);
+		this.systemEmployeeConfirmToJobAdvertisementDao.save(latestConfirm);
 		return new SuccessResult("Job advertisement confirmed by system employee successfully.");
 	}
 

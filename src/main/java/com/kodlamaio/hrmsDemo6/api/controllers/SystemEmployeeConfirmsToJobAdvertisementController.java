@@ -50,7 +50,7 @@ public class SystemEmployeeConfirmsToJobAdvertisementController {
 	}
 	
 	@GetMapping("/getallbyjobadvertisementid")
-	public ResponseEntity<?> getAllByEmployerId(@RequestParam(name = "id") int id) {
+	public ResponseEntity<?> getAllByJobAdvertisementId(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService.getAllByJobAdvertisementId(id));
 	}
 	

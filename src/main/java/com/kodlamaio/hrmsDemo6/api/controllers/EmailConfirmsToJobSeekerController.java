@@ -74,9 +74,9 @@ public class EmailConfirmsToJobSeekerController {
 		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.update(emailConfirmToJobSeeker));
 	}
 	
-	@PostMapping("/confirmemployer)")
-	public ResponseEntity<?> confirmEmployer(@Valid @RequestBody JobSeeker jobSeeker) {
-		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.confirmEmployer(jobSeeker));
+	@PostMapping("/confirmjobseeker)")
+	public ResponseEntity<?> confirmJobSeeker(@Valid @RequestBody JobSeeker jobSeeker) {
+		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.confirmJobSeeker(jobSeeker));
 	}
 	
 	

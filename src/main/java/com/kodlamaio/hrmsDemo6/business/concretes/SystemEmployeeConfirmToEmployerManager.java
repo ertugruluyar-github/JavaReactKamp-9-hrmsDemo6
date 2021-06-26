@@ -98,10 +98,10 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 
 	@Override
 	public Result confirmEmployer(Employer employer) {
-		SystemEmployeeConfirmToEmployer confirm = this.systemEmployeeConfirmToEmployerDao
+		SystemEmployeeConfirmToEmployer latestConfirm = this.systemEmployeeConfirmToEmployerDao
 				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employer.getId());
-		confirm.setConfirm(true);
-		this.systemEmployeeConfirmToEmployerDao.save(confirm);
+		latestConfirm.setConfirm(true);
+		this.systemEmployeeConfirmToEmployerDao.save(latestConfirm);
 		return new SuccessResult("Employer confirmed by system employee successfully.");
 	}
 

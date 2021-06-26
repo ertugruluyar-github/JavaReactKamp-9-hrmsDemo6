@@ -17,6 +17,8 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.JobSeeker;
 public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer> {
 	boolean existsJobSeekerByNationalityId(String nationalityId);
 	boolean existsJobSeekerByEmail(String email);
+	boolean existsByFavouriteJobAdvertisements_Id(int id);
+	
 	List<JobSeeker> findByFavouriteJobAdvertisements_Id(int id);
 	// Id'si "id" olan iş ilanını beğenmiş olan iş arayanları getirir.
 	// İsterlerde yok ama ilerde lazım olabilir diye sadece manager'a kadar yazacağım ve controller'a eklemeyeceğim.

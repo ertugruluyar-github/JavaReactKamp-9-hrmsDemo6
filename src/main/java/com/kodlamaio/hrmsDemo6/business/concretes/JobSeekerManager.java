@@ -33,8 +33,7 @@ public class JobSeekerManager implements JobSeekerService {
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao,
 			JobSeekerEmailRegexValidatorService jobSeekerEmailRegexValidatorService,
-			JobSeekerValidationService jobSeekerValidationService,
-			JobAdvertisementService jobAdvertisementService,
+			JobSeekerValidationService jobSeekerValidationService, JobAdvertisementService jobAdvertisementService,
 			EmailConfirmToJobSeekerService emailConfirmToJobSeekerService) {
 		this.jobSeekerDao = jobSeekerDao;
 		this.jobSeekerEmailRegexValidatorService = jobSeekerEmailRegexValidatorService;
@@ -97,6 +96,21 @@ public class JobSeekerManager implements JobSeekerService {
 	@Override
 	public boolean existsJobSeekerByEmail(String email) {
 		return this.jobSeekerDao.existsJobSeekerByEmail(email);
+	}
+
+	@Override
+	public DataResult<Boolean> existsByFavouriteJobAdvertisementsId(int id) {
+		boolean isExist = this.jobSeekerDao.existsByFavouriteJobAdvertisements_Id(id);
+		
+		if (isExist) {
+			return new SuccessDataResult<Boolean>(
+					"The job advertisement is exist in the jobseeker's favourite job advertisements.",
+					isExist);
+		} else {
+			return new ErrorDataResult<Boolean>(
+					"The job advertisement is not exist in the jobseeker's favourite job advertisements.",
+					isExist);
+		}
 	}
 
 	@Override

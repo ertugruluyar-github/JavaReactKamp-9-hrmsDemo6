@@ -15,10 +15,11 @@ public interface JobSeekerService {
 	Result update(JobSeeker jobSeeker);
 	
 	boolean existsJobSeekerByNationalityId(String nationalityId);
-	boolean existsJobSeekerByEmail(String email);
+	boolean existsJobSeekerByEmail(String email);	
 	
 	Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
 	Result dislikeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
+	DataResult<Boolean> existsByFavouriteJobAdvertisementsId(int id);
 	
 	DataResult<List<JobSeeker>> getAllByFavouriteJobAdvertisementsId(int id);
 }

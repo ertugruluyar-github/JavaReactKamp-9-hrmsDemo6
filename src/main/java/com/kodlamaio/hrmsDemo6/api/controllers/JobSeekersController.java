@@ -75,6 +75,11 @@ public class JobSeekersController {
 		return ResponseEntity.ok(this.jobSeekerService.dislikeJobAdvertisement(jobSeekerId, jobAdvertisementId));
 	}
 	
+	@GetMapping("/existsbyfavouritejobadvertisementsid")
+	public ResponseEntity<?> existsByFavouriteJobAdvertisementsId(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.jobSeekerService.existsByFavouriteJobAdvertisementsId(id));
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {

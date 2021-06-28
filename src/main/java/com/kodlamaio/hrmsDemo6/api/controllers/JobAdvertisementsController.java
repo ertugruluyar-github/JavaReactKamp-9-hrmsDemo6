@@ -95,12 +95,12 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceType(workingPlaceTypeId));
 	}
 
-	@GetMapping("/getallbyactivatedandworkingplacetypeorworkingtimetype")
-	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(
+	@GetMapping("/getallbyactivatedandworkingplacetypeandworkingtimetype")
+	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceTypeAndWorkingTimeType(
 			@RequestParam(name = "workingPlaceTypeId") int workingPlaceTypeId,
 			@RequestParam(name = "workingTimeTypeId") int workingTimeTypeId) {
 		return ResponseEntity.ok(this.jobAdvertisementService
-				.getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(workingPlaceTypeId, workingTimeTypeId));
+				.getAllByActivatedAndWorkingPlaceTypeAndWorkingTimeType(workingPlaceTypeId, workingTimeTypeId));
 	}
 
 	@GetMapping("/getallbyactivatedwithpageable")
@@ -110,14 +110,14 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedWithPageable(allEntitiesWithPageable));
 	}
 
-	@GetMapping("/getallbyactivatedandworkingplacetypeorworkingtimetypewithpageable")
-	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(
+	@GetMapping("/getallbyactivatedandworkingplacetypeandworkingtimetypewithpageable")
+	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceTypeAndWorkingTimeTypeWithPageable(
 			@RequestParam(name = "workingPlaceTypeId") int workingPlaceTypeId,
 			@RequestParam(name = "workingTimeTypeId") int workingTimeTypeId,
 			@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		Pageable allEntitiesWithPageable = PageRequest.of(pageNumber - 1, pageSize);
 		return ResponseEntity
-				.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(
+				.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceTypeAndWorkingTimeTypeWithPageable(
 						workingPlaceTypeId, workingTimeTypeId, allEntitiesWithPageable));
 	}
 

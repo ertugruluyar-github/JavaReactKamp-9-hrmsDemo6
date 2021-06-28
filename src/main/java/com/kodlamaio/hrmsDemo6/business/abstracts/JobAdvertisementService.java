@@ -23,10 +23,10 @@ public interface JobAdvertisementService {
 
 	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(int workingPlaceTypeId);
 	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(int workingTimeTypeId);
-	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(int workingPlaceTypeId, int workingTimeTypeId);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeAndWorkingTimeType(int workingPlaceTypeId, int workingTimeTypeId);
 	
 	DataResult<List<JobAdvertisement>> getAllByActivatedWithPageable(Pageable pageable);
-	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(int workingPlaceTypeId, int workingTimeTypeId, Pageable pageable);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeAndWorkingTimeTypeWithPageable(int workingPlaceTypeId, int workingTimeTypeId, Pageable pageable);
 	
 	Result activateJobAdvertisement(int id);
 	Result deactivateJobAdvertisement(int id);

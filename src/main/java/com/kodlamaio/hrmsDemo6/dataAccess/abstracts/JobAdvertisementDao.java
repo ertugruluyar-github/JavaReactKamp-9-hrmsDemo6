@@ -16,9 +16,9 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	List<JobAdvertisement> findByActiveTrueAndEmployer_Id(Integer id);
 	List<JobAdvertisement> findByActiveTrueAndWorkingTimeType_Id(Integer workingPlaceTypeId);
 	List<JobAdvertisement> findByActiveTrueAndWorkingPlaceType_Id(Integer workingTimeTypeId);
-	List<JobAdvertisement> findByActiveTrueAndWorkingPlaceType_IdOrWorkingTimeType_Id(Integer workingPlaceTypeId, Integer workingTimeTypeId);
+	List<JobAdvertisement> findByActiveTrueAndWorkingPlaceType_IdAndWorkingTimeType_Id(Integer workingPlaceTypeId, Integer workingTimeTypeId);
 	List<JobAdvertisement> findByActiveTrue(Pageable pageable);
-	List<JobAdvertisement> findByActiveTrueAndWorkingPlaceType_IdOrWorkingTimeType_Id(Integer workingPlaceTypeId, Integer workingTimeTypeId, Pageable pageable);
+	List<JobAdvertisement> findByActiveTrueAndWorkingPlaceType_IdAndWorkingTimeType_Id(Integer workingPlaceTypeId, Integer workingTimeTypeId, Pageable pageable);
 	// Hocanın örneğinde CategoryCategoryId yazılırsa olur. Bu adreste bir örnek mevcut.
 	// https://thorben-janssen.com/ultimate-guide-derived-queries-with-spring-data-jpa/#Traverse_associations_in_derived_queries
 	// Burada jpa employer field arıyor JobAdvertisement class'ında

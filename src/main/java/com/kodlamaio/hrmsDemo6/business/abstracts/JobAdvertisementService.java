@@ -23,8 +23,10 @@ public interface JobAdvertisementService {
 
 	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(String type);
 	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(String type);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(String workingPlaceType, String workingTimeType);
 	
 	DataResult<List<JobAdvertisement>> getAllByActivatedWithPageable(Pageable pageable);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(String workingPlaceType, String workingTimeType, Pageable pageable);
 	
 	Result activateJobAdvertisement(int id);
 	Result deactivateJobAdvertisement(int id);

@@ -19,43 +19,47 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToJobAdve
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
-	
+
 	private JobAdvertisementDao jobAdvertisementDao;
 	private SystemEmployeeConfirmToJobAdvertisementService systemEmployeeConfirmToJobAdvertisementService;
-	
+
 	@Autowired
 	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao,
 			SystemEmployeeConfirmToJobAdvertisementService systemEmployeeConfirmToJobAdvertisementService) {
 		this.jobAdvertisementDao = jobAdvertisementDao;
 		this.systemEmployeeConfirmToJobAdvertisementService = systemEmployeeConfirmToJobAdvertisementService;
 	}
-	
+
 	@Override
 	public Result add(JobAdvertisement jobAdvertisement) {
 		this.jobAdvertisementDao.save(jobAdvertisement);
-		this.systemEmployeeConfirmToJobAdvertisementService.add(new SystemEmployeeConfirmToJobAdvertisement(jobAdvertisement));
+		this.systemEmployeeConfirmToJobAdvertisementService
+				.add(new SystemEmployeeConfirmToJobAdvertisement(jobAdvertisement));
 		return new SuccessResult("Job advertisement added successfully.");
 	}
-	
+
 	@Override
 	public Result delete(int id) {
 		this.systemEmployeeConfirmToJobAdvertisementService.deleteByJobAdvertisementId(id);
-		this.jobAdvertisementDao.deleteById(id);;
+		this.jobAdvertisementDao.deleteById(id);
+		;
 		return new SuccessResult("Job advertisement deleted successfully.");
 	}
-	
+
 	@Override
 	public Result update(JobAdvertisement jobAdvertisement) {
 		this.jobAdvertisementDao.save(jobAdvertisement);
-		this.systemEmployeeConfirmToJobAdvertisementService.add(new SystemEmployeeConfirmToJobAdvertisement(jobAdvertisement));
+		this.systemEmployeeConfirmToJobAdvertisementService
+				.add(new SystemEmployeeConfirmToJobAdvertisement(jobAdvertisement));
 		return new SuccessResult("Job advertisement updated successfully.");
 	}
-	
+
 	@Override
 	public DataResult<List<JobAdvertisement>> getAll() {
-		return new SuccessDataResult<List<JobAdvertisement>>("Job advertisements listed successfully.", this.jobAdvertisementDao.findAll());
+		return new SuccessDataResult<List<JobAdvertisement>>("Job advertisements listed successfully.",
+				this.jobAdvertisementDao.findAll());
 	}
-	
+
 	@Override
 	public DataResult<JobAdvertisement> get(int id) {
 		if (this.jobAdvertisementDao.findById(id).orElse(null) != null) {
@@ -65,40 +69,70 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 			return new ErrorDataResult<JobAdvertisement>("The specified job advertisement is not available.");
 		}
 	}
-	
+
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivated() {
-		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed successfully.", this.jobAdvertisementDao.findByActiveTrue());
+		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed successfully.",
+				this.jobAdvertisementDao.findByActiveTrue());
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedOrderByReleaseDateAsc() {
-		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed and ordered by release date (Asc) successfully.", this.jobAdvertisementDao.findByActiveTrueOrderByReleaseDateAsc());
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed and ordered by release date (Asc) successfully.",
+				this.jobAdvertisementDao.findByActiveTrueOrderByReleaseDateAsc());
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedOrderByApplicationDeadlineAsc() {
-		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed and ordered by application deadline date (Asc) successfully.", this.jobAdvertisementDao.findByActiveTrueOrderByApplicationDeadlineAsc());
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed and ordered by application deadline date (Asc) successfully.",
+				this.jobAdvertisementDao.findByActiveTrueOrderByApplicationDeadlineAsc());
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedAndEmployerId(int id) {
-		return new SuccessDataResult<List<JobAdvertisement>>("The employer's active job advertisements listed successfully.", this.jobAdvertisementDao.findByActiveTrueAndEmployer_Id(id));
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"The employer's active job advertisements listed successfully.",
+				this.jobAdvertisementDao.findByActiveTrueAndEmployer_Id(id));
 	}
-	
+
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(String type) {
-		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed by WorkingTimeType successfully.", this.jobAdvertisementDao.findByActiveTrueAndWorkingTimeType_Type(type));
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed by WorkingTimeType successfully.",
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingTimeType_Type(type));
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(String type) {
-		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed by WorkingPlaceType successfully.", this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_Type(type));
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed by WorkingPlaceType successfully.",
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_Type(type));
 	}
-	
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(
+			String workingPlaceType, String workingTimeType) {
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed by WorkingPlaceType or WorkingTimeType successfully.",
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_TypeOrWorkingTimeType_Type(workingPlaceType, workingTimeType));
+
+	}
+
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedWithPageable(Pageable pageable) {
-		return new SuccessDataResult<List<JobAdvertisement>>("Active job advertisements listed with pageable successfully." , this.jobAdvertisementDao.findByActiveTrue(pageable));
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed with pageable successfully.",
+				this.jobAdvertisementDao.findByActiveTrue(pageable));
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(
+			String workingPlaceType, String workingTimeType, Pageable pageable) {
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				"Active job advertisements listed by WorkingPlaceType or WorkingTimeType with pageable successfully.",
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_TypeOrWorkingTimeType_Type(workingPlaceType, workingTimeType, pageable));
 	}
 
 	@Override
@@ -116,5 +150,5 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		this.jobAdvertisementDao.save(j);
 		return new SuccessResult("Job advertisement deactivated successfully.");
 	}
-	
+
 }

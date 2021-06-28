@@ -98,25 +98,25 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 
 	@Override
-	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(String type) {
+	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(int workingTimeTypeId) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				"Active job advertisements listed by WorkingTimeType successfully.",
-				this.jobAdvertisementDao.findByActiveTrueAndWorkingTimeType_Type(type));
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingTimeType_Id(workingTimeTypeId));
 	}
 
 	@Override
-	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(String type) {
+	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(int workingPlaceTypeId) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				"Active job advertisements listed by WorkingPlaceType successfully.",
-				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_Type(type));
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_Id(workingPlaceTypeId));
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(
-			String workingPlaceType, String workingTimeType) {
+			int workingPlaceTypeId, int workingTimeTypeId) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				"Active job advertisements listed by WorkingPlaceType or WorkingTimeType successfully.",
-				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_TypeOrWorkingTimeType_Type(workingPlaceType, workingTimeType));
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_IdOrWorkingTimeType_Id(workingPlaceTypeId, workingTimeTypeId));
 
 	}
 
@@ -129,10 +129,10 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(
-			String workingPlaceType, String workingTimeType, Pageable pageable) {
+			int workingPlaceTypeId, int workingTimeTypeId, Pageable pageable) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				"Active job advertisements listed by WorkingPlaceType or WorkingTimeType with pageable successfully.",
-				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_TypeOrWorkingTimeType_Type(workingPlaceType, workingTimeType, pageable));
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_IdOrWorkingTimeType_Id(workingPlaceTypeId, workingTimeTypeId, pageable));
 	}
 
 	@Override

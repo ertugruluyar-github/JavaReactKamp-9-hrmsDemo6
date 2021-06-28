@@ -21,12 +21,12 @@ public interface JobAdvertisementService {
 	DataResult<List<JobAdvertisement>> getAllByActivatedOrderByReleaseDateAsc();
 	DataResult<List<JobAdvertisement>> getAllByActivatedOrderByApplicationDeadlineAsc();
 
-	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(String type);
-	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(String type);
-	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(String workingPlaceType, String workingTimeType);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingTimeType(int workingPlaceTypeId);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceType(int workingTimeTypeId);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(int workingPlaceTypeId, int workingTimeTypeId);
 	
 	DataResult<List<JobAdvertisement>> getAllByActivatedWithPageable(Pageable pageable);
-	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(String workingPlaceType, String workingTimeType, Pageable pageable);
+	DataResult<List<JobAdvertisement>> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(int workingPlaceTypeId, int workingTimeTypeId, Pageable pageable);
 	
 	Result activateJobAdvertisement(int id);
 	Result deactivateJobAdvertisement(int id);

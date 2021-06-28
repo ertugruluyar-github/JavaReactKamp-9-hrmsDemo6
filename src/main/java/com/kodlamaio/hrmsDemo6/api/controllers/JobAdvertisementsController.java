@@ -86,21 +86,21 @@ public class JobAdvertisementsController {
 	}
 
 	@GetMapping("/getallbyactivatedandworkingtimetype")
-	public ResponseEntity<?> getAllByActivatedAndWorkingTimeType(@RequestParam(name = "type") String type) {
-		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingTimeType(type));
+	public ResponseEntity<?> getAllByActivatedAndWorkingTimeType(@RequestParam(name = "workingTimeTypeId") int workingTimeTypeId) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingTimeType(workingTimeTypeId));
 	}
 
 	@GetMapping("/getallbyactivatedandworkingplacetype")
-	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceType(@RequestParam(name = "type") String type) {
-		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceType(type));
+	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceType(@RequestParam(name = "workingPlaceTypeId") int workingPlaceTypeId) {
+		return ResponseEntity.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceType(workingPlaceTypeId));
 	}
 
 	@GetMapping("/getallbyactivatedandworkingplacetypeorworkingtimetype")
-	public ResponseEntity<?> getAllByActiveTrueAndWorkingPlaceType_TypeOrWorkingTimeType_Type(
-			@RequestParam(name = "workingPlaceType") String workingPlaceType,
-			@RequestParam(name = "workingTimeType") String workingTimeType) {
+	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(
+			@RequestParam(name = "workingPlaceTypeId") int workingPlaceTypeId,
+			@RequestParam(name = "workingTimeTypeId") int workingTimeTypeId) {
 		return ResponseEntity.ok(this.jobAdvertisementService
-				.getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(workingPlaceType, workingTimeType));
+				.getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeType(workingPlaceTypeId, workingTimeTypeId));
 	}
 
 	@GetMapping("/getallbyactivatedwithpageable")
@@ -112,13 +112,13 @@ public class JobAdvertisementsController {
 
 	@GetMapping("/getallbyactivatedandworkingplacetypeorworkingtimetypewithpageable")
 	public ResponseEntity<?> getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(
-			@RequestParam(name = "workingPlaceType") String workingPlaceType,
-			@RequestParam(name = "workingTimeType") String workingTimeType,
+			@RequestParam(name = "workingPlaceTypeId") int workingPlaceTypeId,
+			@RequestParam(name = "workingTimeTypeId") int workingTimeTypeId,
 			@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		Pageable allEntitiesWithPageable = PageRequest.of(pageNumber - 1, pageSize);
 		return ResponseEntity
 				.ok(this.jobAdvertisementService.getAllByActivatedAndWorkingPlaceTypeOrWorkingTimeTypeWithPageable(
-						workingPlaceType, workingTimeType, allEntitiesWithPageable));
+						workingPlaceTypeId, workingTimeTypeId, allEntitiesWithPageable));
 	}
 
 	@GetMapping("/activatejobadvertisement")

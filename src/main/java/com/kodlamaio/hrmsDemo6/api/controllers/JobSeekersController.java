@@ -75,6 +75,16 @@ public class JobSeekersController {
 		return ResponseEntity.ok(this.jobSeekerService.dislikeJobAdvertisement(jobSeekerId, jobAdvertisementId));
 	}
 	
+	@GetMapping("/existsjobseekerbynationalityid")
+	public ResponseEntity<?> existsJobSeekerByNationalityId(@RequestParam(name = "nationalityId") String nationalityId) {
+		return  ResponseEntity.ok(this.jobSeekerService.existsJobSeekerByNationalityId(nationalityId));
+	}
+	
+	@GetMapping("/existsjobseekerbyemail")
+	public ResponseEntity<?> existsJobSeekerByEmail(@RequestParam(name = "email") String email) {
+		return  ResponseEntity.ok(this.jobSeekerService.existsJobSeekerByEmail(email));
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {

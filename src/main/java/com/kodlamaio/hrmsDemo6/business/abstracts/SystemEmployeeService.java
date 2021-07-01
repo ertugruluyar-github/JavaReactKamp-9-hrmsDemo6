@@ -14,6 +14,6 @@ public interface SystemEmployeeService {
 	Result delete(int id);
 	Result update(SystemEmployee systemEmployee);
 	
-	Result existsSystemEmployeeByNationalityId(String nationalityId);
-	Result existsSystemEmployeeByEmail(String email);
+	DataResult<Boolean> existsSystemEmployeeByNationalityId(String nationalityId);
+	DataResult<Boolean> existsSystemEmployeeByEmail(String email);
 }

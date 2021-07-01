@@ -27,7 +27,7 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployee;
 
 @RestController
-@RequestMapping("/api/systememployes")
+@RequestMapping("/api/systememployees")
 @CrossOrigin
 public class SystemEmployeesController {
 	
@@ -61,6 +61,16 @@ public class SystemEmployeesController {
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@Valid @RequestBody SystemEmployee systemEmployee) {
 		return ResponseEntity.ok(this.systemEmployeeService.update(systemEmployee));
+	}
+	
+	@GetMapping("/existssystememployeebynationalityid")
+	public ResponseEntity<?> existsSystemEmployeeByNationalityId(@RequestParam(name = "nationalityId") String nationalityId) {
+		return  ResponseEntity.ok(this.systemEmployeeService.existsSystemEmployeeByNationalityId(nationalityId));
+	}
+	
+	@GetMapping("/existssystememployeebyemail")
+	public ResponseEntity<?> existsSystemEmployeeByEmail(@RequestParam(name = "email") String email) {
+		return  ResponseEntity.ok(this.systemEmployeeService.existsSystemEmployeeByEmail(email));
 	}
 	
 	

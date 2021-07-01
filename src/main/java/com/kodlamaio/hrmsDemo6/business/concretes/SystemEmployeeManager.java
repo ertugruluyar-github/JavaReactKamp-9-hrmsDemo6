@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.kodlamaio.hrmsDemo6.business.abstracts.SystemEmployeeService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
-import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
@@ -17,9 +16,9 @@ import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployee;
 
 @Service
 public class SystemEmployeeManager implements SystemEmployeeService {
-	
+
 	private SystemEmployeeDao systemEmployeeDao;
-	
+
 	@Autowired
 	public SystemEmployeeManager(SystemEmployeeDao systemEmployeeDao) {
 		this.systemEmployeeDao = systemEmployeeDao;
@@ -27,14 +26,14 @@ public class SystemEmployeeManager implements SystemEmployeeService {
 
 	@Override
 	public DataResult<List<SystemEmployee>> getAll() {
-		return new SuccessDataResult<List<SystemEmployee>>("System employees listed successfully.", this.systemEmployeeDao.findAll());
+		return new SuccessDataResult<List<SystemEmployee>>("System employees listed successfully.",
+				this.systemEmployeeDao.findAll());
 	}
 
 	@Override
 	public DataResult<SystemEmployee> get(int id) {
-		if (this.systemEmployeeDao.findById(id).orElse(null) != null ) {
-			return new SuccessDataResult<SystemEmployee>(
-					"The specified system employee was found successfully.",
+		if (this.systemEmployeeDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<SystemEmployee>("The specified system employee was found successfully.",
 					this.systemEmployeeDao.findById(id).get());
 		} else {
 			return new ErrorDataResult<SystemEmployee>("The specified system employee is not available.");
@@ -42,8 +41,8 @@ public class SystemEmployeeManager implements SystemEmployeeService {
 	}
 
 	@Override
-	public Result add(SystemEmployee employeePosition) {
-		this.systemEmployeeDao.save(employeePosition);
+	public Result add(SystemEmployee systemEmployee) {
+		this.systemEmployeeDao.save(systemEmployee);
 		return new SuccessResult("System employee added successfully.");
 	}
 
@@ -54,26 +53,28 @@ public class SystemEmployeeManager implements SystemEmployeeService {
 	}
 
 	@Override
-	public Result update(SystemEmployee employeePosition) {
-		this.systemEmployeeDao.save(employeePosition);
+	public Result update(SystemEmployee systemEmployee) {
+		this.systemEmployeeDao.save(systemEmployee);
 		return new SuccessResult("System employee updated successfully.");
 	}
 
 	@Override
-	public Result existsSystemEmployeeByNationalityId(String nationalityId) {
+	public DataResult<Boolean> existsSystemEmployeeByNationalityId(String nationalityId) {
 		if (this.systemEmployeeDao.existsSystemEmployeeByNationalityId(nationalityId)) {
-			return new SuccessResult("There is a system employee with this identification number: " + nationalityId);
+			return new SuccessDataResult<Boolean>(
+					"There is a system employee with this identification number: " + nationalityId, true);
 		} else {
-			return new ErrorResult("There is no system employee with this identification number."+ nationalityId);
+			return new ErrorDataResult<Boolean>(
+					"There is no system employee with this identification number." + nationalityId, false);
 		}
 	}
 
 	@Override
-	public Result existsSystemEmployeeByEmail(String email) {
+	public DataResult<Boolean> existsSystemEmployeeByEmail(String email) {
 		if (this.systemEmployeeDao.existsSystemEmployeeByEmail(email)) {
-			return new SuccessResult("There is system employee with this email: " + email);
+			return new SuccessDataResult<Boolean>("There is system employee with this email: " + email, true);
 		} else {
-			return new ErrorResult("There is no system employee with email."+ email);
+			return new ErrorDataResult<Boolean>("There is no system employee with email." + email, false);
 		}
 	}
 

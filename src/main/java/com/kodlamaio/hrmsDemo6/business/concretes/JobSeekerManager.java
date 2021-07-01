@@ -61,11 +61,11 @@ public class JobSeekerManager implements JobSeekerService {
 	public Result add(JobSeeker jobSeeker) {
 		if (!this.jobSeekerValidationService.isRealPerson(jobSeeker)) {
 			return new ErrorResult("Invalid job seeker!");
-		} else if (this.existsJobSeekerByNationalityId(jobSeeker.getNationalityId())) {
+		} else if (this.jobSeekerDao.existsJobSeekerByNationalityId(jobSeeker.getNationalityId())) {
 			return new ErrorResult("There is a jobseeker record with this identification number.");
 		} else if (!this.jobSeekerEmailRegexValidatorService.isValidEmail(jobSeeker.getEmail())) {
 			return new ErrorResult("Invalid email!");
-		} else if (this.existsJobSeekerByEmail(jobSeeker.getEmail())) {
+		} else if (this.jobSeekerDao.existsJobSeekerByEmail(jobSeeker.getEmail())) {
 			return new ErrorResult("There is a jobseeker record with this email.");
 		} else {
 			this.jobSeekerDao.save(jobSeeker);
@@ -89,13 +89,25 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 
 	@Override
-	public boolean existsJobSeekerByNationalityId(String nationalityId) {
-		return this.jobSeekerDao.existsJobSeekerByNationalityId(nationalityId);
+	public DataResult<Boolean> existsJobSeekerByNationalityId(String nationalityId) {
+		if (this.jobSeekerDao.existsJobSeekerByNationalityId(nationalityId)) {
+			return new SuccessDataResult<Boolean>(
+					"There is a jobseeker with this identification number: " + nationalityId, true);
+		} else {
+			return new ErrorDataResult<Boolean>(
+					"There is no jobseeker with this identification number." + nationalityId, false);
+		}
 	}
 
 	@Override
-	public boolean existsJobSeekerByEmail(String email) {
-		return this.jobSeekerDao.existsJobSeekerByEmail(email);
+	public DataResult<Boolean> existsJobSeekerByEmail(String email) {
+		if (this.jobSeekerDao.existsJobSeekerByEmail(email)) {
+			return new SuccessDataResult<Boolean>(
+					"There is a jobseeker with this email: " + email, true);
+		} else {
+			return new ErrorDataResult<Boolean>(
+					"There is no jobseeker with this email." + email, false);
+		}
 	}
 
 	@Override

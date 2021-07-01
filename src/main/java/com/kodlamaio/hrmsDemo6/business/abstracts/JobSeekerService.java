@@ -14,8 +14,8 @@ public interface JobSeekerService {
 	Result delete(int id);
 	Result update(JobSeeker jobSeeker);
 	
-	boolean existsJobSeekerByNationalityId(String nationalityId);
-	boolean existsJobSeekerByEmail(String email);	
+	DataResult<Boolean> existsJobSeekerByNationalityId(String nationalityId);
+	DataResult<Boolean> existsJobSeekerByEmail(String email);	
 	
 	Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);
 	Result dislikeJobAdvertisement(int jobSeekerId, int jobAdvertisementId);

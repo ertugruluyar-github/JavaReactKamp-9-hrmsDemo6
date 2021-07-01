@@ -44,7 +44,6 @@ public class SystemEmployee extends User {
 	
 	@Column(name="date_of_birth", nullable = false)
 	@NotNull
-	@NotBlank
 	@Past
 	private LocalDate dateOfBirth;
 	

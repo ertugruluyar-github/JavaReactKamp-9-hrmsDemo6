@@ -59,8 +59,8 @@ public class EmployersController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@Valid @RequestBody Employer employerLastUpdate) {
-		return ResponseEntity.ok(this.employerService.update(employerLastUpdate));
+	public ResponseEntity<?> update(@Valid @RequestBody Employer employer) {
+		return ResponseEntity.ok(this.employerService.update(employer));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

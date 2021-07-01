@@ -116,7 +116,8 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 			int workingPlaceTypeId, int workingTimeTypeId) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				"Active job advertisements listed by WorkingPlaceType or WorkingTimeType successfully.",
-				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_IdAndWorkingTimeType_Id(workingPlaceTypeId, workingTimeTypeId));
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_IdAndWorkingTimeType_Id(workingPlaceTypeId,
+						workingTimeTypeId));
 
 	}
 
@@ -132,7 +133,8 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 			int workingPlaceTypeId, int workingTimeTypeId, Pageable pageable) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				"Active job advertisements listed by WorkingPlaceType or WorkingTimeType with pageable successfully.",
-				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_IdAndWorkingTimeType_Id(workingPlaceTypeId, workingTimeTypeId, pageable));
+				this.jobAdvertisementDao.findByActiveTrueAndWorkingPlaceType_IdAndWorkingTimeType_Id(workingPlaceTypeId,
+						workingTimeTypeId, pageable));
 	}
 
 	@Override

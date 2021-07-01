@@ -40,8 +40,8 @@ public class WorkExperienceManager implements WorkExperienceService {
 	}
 
 	@Override
-	public Result add(WorkExperience schoolDegree) {
-		this.workExperienceDao.save(schoolDegree);
+	public Result add(WorkExperience workExperience) {
+		this.workExperienceDao.save(workExperience);
 		return new SuccessResult("Work experience added succesfully.");
 	}
 
@@ -52,8 +52,8 @@ public class WorkExperienceManager implements WorkExperienceService {
 	}
 
 	@Override
-	public Result update(WorkExperience schoolDegree) {
-		this.workExperienceDao.save(schoolDegree);
+	public Result update(WorkExperience workExperience) {
+		this.workExperienceDao.save(workExperience);
 		return new SuccessResult("Work experience updated succesfully.");
 	}
 	

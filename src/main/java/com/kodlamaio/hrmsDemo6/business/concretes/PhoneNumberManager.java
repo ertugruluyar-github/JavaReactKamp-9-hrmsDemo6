@@ -42,8 +42,8 @@ public class PhoneNumberManager implements PhoneNumberService {
 	}
 
 	@Override
-	public Result add(PhoneNumber employeePosition) {
-		this.phoneNumberDao.save(employeePosition);
+	public Result add(PhoneNumber phoneNumber) {
+		this.phoneNumberDao.save(phoneNumber);
 		return new SuccessResult("Phone number added successfully.");
 	}
 
@@ -54,8 +54,8 @@ public class PhoneNumberManager implements PhoneNumberService {
 	}
 
 	@Override
-	public Result update(PhoneNumber employeePosition) {
-		this.phoneNumberDao.save(employeePosition);
+	public Result update(PhoneNumber phoneNumber) {
+		this.phoneNumberDao.save(phoneNumber);
 		return new SuccessResult("Phone number updated successfully.");
 	}
 	

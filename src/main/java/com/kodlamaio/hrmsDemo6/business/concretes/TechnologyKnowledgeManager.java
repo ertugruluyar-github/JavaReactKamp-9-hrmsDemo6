@@ -40,8 +40,8 @@ public class TechnologyKnowledgeManager implements TechnologyKnowledgeService {
 	}
 
 	@Override
-	public Result add(TechnologyKnowledge schoolDegree) {
-		this.technologyKnowledgeDao.save(schoolDegree);
+	public Result add(TechnologyKnowledge technologyKnowledge) {
+		this.technologyKnowledgeDao.save(technologyKnowledge);
 		return new SuccessResult("Technology Knowledge added succesfully.");
 	}
 
@@ -52,8 +52,8 @@ public class TechnologyKnowledgeManager implements TechnologyKnowledgeService {
 	}
 
 	@Override
-	public Result update(TechnologyKnowledge schoolDegree) {
-		this.technologyKnowledgeDao.save(schoolDegree);
+	public Result update(TechnologyKnowledge technologyKnowledge) {
+		this.technologyKnowledgeDao.save(technologyKnowledge);
 		return new SuccessResult("Technology Knowledge updated succesfully.");
 	}
 

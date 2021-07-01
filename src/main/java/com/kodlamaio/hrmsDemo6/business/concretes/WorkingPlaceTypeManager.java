@@ -40,8 +40,8 @@ public class WorkingPlaceTypeManager implements WorkingPlaceTypeService {
 	}
 
 	@Override
-	public Result add(WorkingPlaceType workingTimeType) {
-		this.workingPlaceTypeDao.save(workingTimeType);
+	public Result add(WorkingPlaceType workingPlaceType) {
+		this.workingPlaceTypeDao.save(workingPlaceType);
 		return new SuccessResult("WorkingPlaceType added successfully.");
 	}
 
@@ -52,8 +52,8 @@ public class WorkingPlaceTypeManager implements WorkingPlaceTypeService {
 	}
 
 	@Override
-	public Result update(WorkingPlaceType workingTimeType) {
-		this.workingPlaceTypeDao.save(workingTimeType);
+	public Result update(WorkingPlaceType workingPlaceType) {
+		this.workingPlaceTypeDao.save(workingPlaceType);
 		return new SuccessResult("WorkingPlaceType updated successfully.");
 	}
 

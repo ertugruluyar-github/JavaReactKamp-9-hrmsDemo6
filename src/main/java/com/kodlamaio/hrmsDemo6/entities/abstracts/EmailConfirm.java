@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
@@ -27,7 +26,6 @@ public abstract class EmailConfirm extends Confirm {
 	
 	@Column(name="is_confirm", nullable = false)
 	@NotNull
-	@NotBlank
 	private boolean isConfirm = false;
 	
 	@Column(name="date_of_confirm")

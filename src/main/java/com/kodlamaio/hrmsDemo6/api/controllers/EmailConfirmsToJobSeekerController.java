@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kodlamaio.hrmsDemo6.business.abstracts.EmailConfirmToJobSeekerService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.entities.concretes.EmailConfirmToJobSeeker;
-import com.kodlamaio.hrmsDemo6.entities.concretes.JobSeeker;
 
 @RestController
 @RequestMapping("/api/emailconfirmstojobseeker")
@@ -75,8 +74,8 @@ public class EmailConfirmsToJobSeekerController {
 	}
 	
 	@PostMapping("/confirmjobseeker)")
-	public ResponseEntity<?> confirmJobSeeker(@Valid @RequestBody JobSeeker jobSeeker) {
-		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.confirmJobSeeker(jobSeeker));
+	public ResponseEntity<?> confirmJobSeeker(@RequestParam(name = "jobSeekerId") int jobSeekerId) {
+		return ResponseEntity.ok(this.emailConfirmToJobSeekerService.confirmJobSeeker(jobSeekerId));
 	}
 	
 	

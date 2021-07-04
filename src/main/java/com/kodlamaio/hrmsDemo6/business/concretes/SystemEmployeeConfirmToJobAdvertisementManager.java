@@ -12,7 +12,6 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeConfirmToJobAdvertisementDao;
-import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToJobAdvertisement;
 
 @Service
@@ -102,9 +101,9 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	}
 
 	@Override
-	public Result confirmJobAdvertisement(JobAdvertisement jobAdvertisement) {
+	public Result confirmJobAdvertisement(int jobAdvertisementId) {
 		SystemEmployeeConfirmToJobAdvertisement latestConfirm = this.systemEmployeeConfirmToJobAdvertisementDao
-				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(jobAdvertisement.getId());
+				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(jobAdvertisementId);
 		latestConfirm.setConfirm(true);
 		this.systemEmployeeConfirmToJobAdvertisementDao.save(latestConfirm);
 		return new SuccessResult("Job advertisement confirmed by system employee successfully.");

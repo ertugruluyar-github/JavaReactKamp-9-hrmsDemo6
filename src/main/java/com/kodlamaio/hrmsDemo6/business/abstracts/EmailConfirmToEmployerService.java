@@ -5,7 +5,6 @@ import java.util.List;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.entities.concretes.EmailConfirmToEmployer;
-import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
 
 public interface EmailConfirmToEmployerService {
 	DataResult<List<EmailConfirmToEmployer>> getAll();
@@ -18,6 +17,6 @@ public interface EmailConfirmToEmployerService {
 	Result deleteByEmployerId(int id);
 	Result update(EmailConfirmToEmployer emailConfirmToEmployer);
 	
-	Result confirmEmployer(Employer employer);
+	Result confirmEmployer(int employerId);
 	
 }

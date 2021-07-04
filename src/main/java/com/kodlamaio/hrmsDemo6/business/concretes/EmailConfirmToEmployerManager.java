@@ -13,7 +13,6 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.EmailConfirmToEmployerDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.EmailConfirmToEmployer;
-import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
 
 @Service
 public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerService {
@@ -95,9 +94,9 @@ public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerServ
 	}
 
 	@Override
-	public Result confirmEmployer(Employer employer) {
+	public Result confirmEmployer(int employerId) {
 		EmailConfirmToEmployer latestConfirm = this.emailConfirmToEmployerDao
-				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employer.getId());
+				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employerId);
 		latestConfirm.setConfirm(true);
 		this.emailConfirmToEmployerDao.save(latestConfirm);
 		return new SuccessResult("Employer's email confirmed successfully.");

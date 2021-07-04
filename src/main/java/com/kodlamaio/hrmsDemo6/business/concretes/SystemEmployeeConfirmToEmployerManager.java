@@ -12,7 +12,6 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeConfirmToEmployerDao;
-import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToEmployer;
 
 @Service
@@ -97,9 +96,9 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 	}
 
 	@Override
-	public Result confirmEmployer(Employer employer) {
+	public Result confirmEmployer(int employerId) {
 		SystemEmployeeConfirmToEmployer latestConfirm = this.systemEmployeeConfirmToEmployerDao
-				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employer.getId());
+				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employerId);
 		latestConfirm.setConfirm(true);
 		this.systemEmployeeConfirmToEmployerDao.save(latestConfirm);
 		return new SuccessResult("Employer confirmed by system employee successfully.");

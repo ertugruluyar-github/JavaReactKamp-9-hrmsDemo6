@@ -24,70 +24,72 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kodlamaio.hrmsDemo6.business.abstracts.SystemEmployeeConfirmToEmployerService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
-import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToEmployer;
 
 @RestController
 @RequestMapping("/api/systememployeeconfirmstoemployer")
 @CrossOrigin
 public class SystemEmployeeConfirmsToEmployerController {
-	
+
 	private SystemEmployeeConfirmToEmployerService systemEmployeeConfirmToEmployerService;
-	
+
 	@Autowired
-	public SystemEmployeeConfirmsToEmployerController(SystemEmployeeConfirmToEmployerService systemEmployeeConfirmToEmployerService) {
+	public SystemEmployeeConfirmsToEmployerController(
+			SystemEmployeeConfirmToEmployerService systemEmployeeConfirmToEmployerService) {
 		this.systemEmployeeConfirmToEmployerService = systemEmployeeConfirmToEmployerService;
 	}
-	
+
 	@GetMapping("/getall")
 	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.getAll());
 	}
-	
+
 	@GetMapping("/get")
 	public ResponseEntity<?> get(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.get(id));
 	}
-	
+
 	@GetMapping("/getallbyemployerid")
 	public ResponseEntity<?> getAllByEmployerId(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.getAllByEmployerId(id));
 	}
-	
+
 	@GetMapping("/getfirstbyemployeridorderbydateofconfirmdesc")
 	public ResponseEntity<?> getFirstByEmployerIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.getFirstByEmployerIdOrderByDateOfConfirmDesc(id));
+		return ResponseEntity
+				.ok(this.systemEmployeeConfirmToEmployerService.getFirstByEmployerIdOrderByDateOfConfirmDesc(id));
 	}
-	
+
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody SystemEmployeeConfirmToEmployer systemEmployeeConfirmToToEmployer) {
+	public ResponseEntity<?> add(
+			@Valid @RequestBody SystemEmployeeConfirmToEmployer systemEmployeeConfirmToToEmployer) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.add(systemEmployeeConfirmToToEmployer));
 	}
-	
+
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.delete(id));
 	}
-	
+
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@Valid @RequestBody SystemEmployeeConfirmToEmployer systemEmployeeConfirmToToEmployer) {
+	public ResponseEntity<?> update(
+			@Valid @RequestBody SystemEmployeeConfirmToEmployer systemEmployeeConfirmToToEmployer) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.update(systemEmployeeConfirmToToEmployer));
 	}
-	
+
 	@PostMapping("/confirmemployer)")
-	public ResponseEntity<?> confirmEmployer(@Valid @RequestBody Employer employer) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.confirmEmployer(employer));
+	public ResponseEntity<?> confirmEmployer(@RequestParam(name = "employerId") int employerId) {
+		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.confirmEmployer(employerId));
 	}
-	
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
 		Map<String, String> validationErrors = new HashMap<String, String>();
-		for (FieldError fieldError: exceptions.getBindingResult().getFieldErrors()) {
+		for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
 			validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
 		}
 		return new ErrorDataResult<Object>("Validation Errors", validationErrors);
 	}
-	
+
 }

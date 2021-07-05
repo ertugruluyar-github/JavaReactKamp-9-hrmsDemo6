@@ -5,30 +5,38 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kodlamaio.hrmsDemo6.business.abstracts.SystemEmployeeConfirmToEmployerService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
+import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.EmployerDao;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeConfirmToEmployerDao;
+import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToEmployer;
 
 @Service
 public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeConfirmToEmployerService {
 
 	private SystemEmployeeConfirmToEmployerDao systemEmployeeConfirmToEmployerDao;
+	private EmployerDao employerDao;
 
 	@Autowired
 	public SystemEmployeeConfirmToEmployerManager(
-			SystemEmployeeConfirmToEmployerDao systemEmployeeConfirmToEmployerDao) {
+			SystemEmployeeConfirmToEmployerDao systemEmployeeConfirmToEmployerDao,
+			EmployerDao employerDao) {
 		this.systemEmployeeConfirmToEmployerDao = systemEmployeeConfirmToEmployerDao;
+		this.employerDao = employerDao;
 	}
 
 	@Override
 	public DataResult<List<SystemEmployeeConfirmToEmployer>> getAll() {
 		return new SuccessDataResult<List<SystemEmployeeConfirmToEmployer>>(
-				"System employee to employers listed successfully.", this.systemEmployeeConfirmToEmployerDao.findAll());
+				"System employee confirm to employers listed successfully.", this.systemEmployeeConfirmToEmployerDao.findAll());
 	}
 
 	@Override
@@ -101,6 +109,15 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employerId);
 		latestConfirm.setConfirm(true);
 		this.systemEmployeeConfirmToEmployerDao.save(latestConfirm);
+		String latestEmployerJsonString = this.employerDao.findById(employerId).get().getEmployerLastUpdateJsonString();
+		try {
+			Employer latestEmployer = new ObjectMapper().readValue(latestEmployerJsonString, Employer.class);
+			this.employerDao.save(latestEmployer);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		return new SuccessResult("Employer confirmed by system employee successfully.");
 	}
 

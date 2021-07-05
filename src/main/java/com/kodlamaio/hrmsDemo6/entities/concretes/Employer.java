@@ -35,7 +35,7 @@ public class Employer extends User {
 	@NotBlank
 	private String webSite;
 	
-	@Column(name="employer_last_update")
+	@Column(name="employer_last_update_json_string")
 	private String employerLastUpdateJsonString;
 	
 	@JsonIgnore

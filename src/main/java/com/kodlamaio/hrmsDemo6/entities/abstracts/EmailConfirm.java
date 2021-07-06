@@ -24,17 +24,17 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class EmailConfirm extends Confirm {
 	
-	@Column(name="is_confirm", nullable = false)
+	@Column(name="confirm_status", nullable = false)
 	@NotNull
-	private boolean isConfirm = false;
+	private boolean confirmStatus = false;
 	
 	@Column(name="date_of_confirm")
 	@NotNull
 	@PastOrPresent
 	private LocalDate dateOfConfirm = LocalDate.now();
 	
-	public EmailConfirm(boolean isConfirm) {
-		this.isConfirm = isConfirm;
+	public EmailConfirm(boolean confirmStatus) {
+		this.confirmStatus = confirmStatus;
 	}
 	
 	public void setDateOfConfirm(LocalDate dateOfConfirm) {

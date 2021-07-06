@@ -20,8 +20,8 @@ public class SystemEmployeeConfirmToEmployer extends SystemEmployeeConfirm {
 	@OneToOne//Unidirectional
 	private Employer employer;
 	
-	public SystemEmployeeConfirmToEmployer(boolean isConfirm) {
-		super(isConfirm);
+	public SystemEmployeeConfirmToEmployer(boolean confirmStatus) {
+		super(confirmStatus);
 	}
 	
 	public SystemEmployeeConfirmToEmployer(Employer employer) {
@@ -29,8 +29,8 @@ public class SystemEmployeeConfirmToEmployer extends SystemEmployeeConfirm {
 		this.employer = employer;
 	}
 	
-	public SystemEmployeeConfirmToEmployer(boolean isConfirm, Employer employer) {
-		super(isConfirm);
+	public SystemEmployeeConfirmToEmployer(boolean confirmStatus, Employer employer) {
+		super(confirmStatus);
 		this.employer = employer;
 	}
 	

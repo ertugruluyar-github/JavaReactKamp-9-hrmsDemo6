@@ -38,6 +38,10 @@ public class Employer extends User {
 	@Column(name="employer_last_update_json_string")
 	private String employerLastUpdateJsonString;
 	
+	@Column(name="on_update_process_status", nullable = false)
+	@NotNull
+	private boolean OnUpdateProcessStatus = true;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "employer")
 	private List<JobAdvertisement> jobAdvertisements;

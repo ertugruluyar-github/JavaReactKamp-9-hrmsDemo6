@@ -104,7 +104,7 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	public Result confirmJobAdvertisement(int jobAdvertisementId) {
 		SystemEmployeeConfirmToJobAdvertisement latestConfirm = this.systemEmployeeConfirmToJobAdvertisementDao
 				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(jobAdvertisementId);
-		latestConfirm.setConfirm(true);
+		latestConfirm.setConfirmStatus(true);
 		this.systemEmployeeConfirmToJobAdvertisementDao.save(latestConfirm);
 		return new SuccessResult("Job advertisement confirmed by system employee successfully.");
 	}

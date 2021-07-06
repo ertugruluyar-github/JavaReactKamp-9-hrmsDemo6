@@ -20,8 +20,8 @@ public class SystemEmployeeConfirmToJobAdvertisement extends SystemEmployeeConfi
 	@OneToOne//Unidirectionals
 	private JobAdvertisement jobAdvertisement;
 	
-	public SystemEmployeeConfirmToJobAdvertisement(boolean isConfirm) {
-		super(isConfirm);
+	public SystemEmployeeConfirmToJobAdvertisement(boolean confirmStatus) {
+		super(confirmStatus);
 	}
 	
 	public SystemEmployeeConfirmToJobAdvertisement(JobAdvertisement jobAdvertisement) {
@@ -29,8 +29,8 @@ public class SystemEmployeeConfirmToJobAdvertisement extends SystemEmployeeConfi
 		this.jobAdvertisement = jobAdvertisement;
 	}
 	
-	public SystemEmployeeConfirmToJobAdvertisement(boolean isConfirm, JobAdvertisement jobAdvertisement) {
-		super(isConfirm);
+	public SystemEmployeeConfirmToJobAdvertisement(boolean confirmStatus, JobAdvertisement jobAdvertisement) {
+		super(confirmStatus);
 		this.jobAdvertisement = jobAdvertisement;
 	}
 	

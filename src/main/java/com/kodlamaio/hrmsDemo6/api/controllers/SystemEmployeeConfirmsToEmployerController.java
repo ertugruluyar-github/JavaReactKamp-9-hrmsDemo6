@@ -49,17 +49,17 @@ public class SystemEmployeeConfirmsToEmployerController {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.get(id));
 	}
 
-	@GetMapping("/getallbyemployerid")
-	public ResponseEntity<?> getAllByEmployerId(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.getAllByEmployerId(id));
+	@GetMapping("/getbyemployerid")
+	public ResponseEntity<?> getByEmployerId(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.getByEmployerId(id));
 	}
-
+	/*
 	@GetMapping("/getfirstbyemployeridorderbydateofconfirmdesc")
 	public ResponseEntity<?> getFirstByEmployerIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
 		return ResponseEntity
 				.ok(this.systemEmployeeConfirmToEmployerService.getFirstByEmployerIdOrderByDateOfConfirmDesc(id));
 	}
-
+	*/
 	@PostMapping("/add")
 	public ResponseEntity<?> add(
 			@Valid @RequestBody SystemEmployeeConfirmToEmployer systemEmployeeConfirmToToEmployer) {

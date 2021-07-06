@@ -97,7 +97,7 @@ public class EmailConfirmToJobSeekerManager implements EmailConfirmToJobSeekerSe
 	public Result confirmJobSeeker(int jobSeekerId) {
 		EmailConfirmToJobSeeker latestConfirm = this.emailConfirmToJobSeekerDao
 				.findFirstByJobSeeker_IdOrderByDateOfConfirmDesc(jobSeekerId);
-		latestConfirm.setConfirm(true);
+		latestConfirm.setConfirmStatus(true);
 		this.emailConfirmToJobSeekerDao.save(latestConfirm);
 		return new SuccessResult("Job seeker's email confirmed successfully.");
 	}

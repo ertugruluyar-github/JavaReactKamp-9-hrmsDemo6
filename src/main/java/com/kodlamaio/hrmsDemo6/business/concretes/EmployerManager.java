@@ -62,7 +62,7 @@ public class EmployerManager implements EmployerService {
 			return new ErrorResult("There is an employer record with this email.");
 		} else {
 			this.employerDao.save(employer);
-			// default isConfirm=false
+			// default isConfirm=false, default OnUpdateProcessStatus=true
 			this.systemEmployeeConfirmToEmployerService.add(new SystemEmployeeConfirmToEmployer(employer));
 			this.emailConfirmToEmployerService.add(new EmailConfirmToEmployer(employer));
 			return new SuccessResult("Employer added successfully.");
@@ -79,14 +79,14 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public Result update(Employer employer) {
-		SystemEmployeeConfirmToEmployer latestSystemEmployeeConfirm = this.systemEmployeeConfirmToEmployerService
-				.getFirstByEmployerIdOrderByDateOfConfirmDesc(employer.getId()).getData();
+		SystemEmployeeConfirmToEmployer systemEmployeeConfirmToEmployer = this.systemEmployeeConfirmToEmployerService
+				.getByEmployerId(employer.getId()).getData();
 		EmailConfirmToEmployer latestEmailConfirm = this.emailConfirmToEmployerService
 				.getFirstByEmployerIdOrderByDateOfConfirmDesc(employer.getId()).getData();
 		
-		if (!latestSystemEmployeeConfirm.isConfirm()) {
+		if (!systemEmployeeConfirmToEmployer.isConfirmStatus()) {
 			return new ErrorResult("The employer has not been verified by the system yet!");
-		} else if (!latestEmailConfirm.isConfirm()) {
+		} else if (!latestEmailConfirm.isConfirmStatus()) {
 			return new ErrorResult("The employer's email has not been verified!");
 		} else {
 			this.employerDao.save(employer);

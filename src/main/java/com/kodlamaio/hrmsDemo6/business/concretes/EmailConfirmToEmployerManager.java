@@ -97,7 +97,7 @@ public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerServ
 	public Result confirmEmployer(int employerId) {
 		EmailConfirmToEmployer latestConfirm = this.emailConfirmToEmployerDao
 				.findFirstByEmployer_IdOrderByDateOfConfirmDesc(employerId);
-		latestConfirm.setConfirm(true);
+		latestConfirm.setConfirmStatus(true);
 		this.emailConfirmToEmployerDao.save(latestConfirm);
 		return new SuccessResult("Employer's email confirmed successfully.");
 	}

@@ -20,8 +20,8 @@ public class EmailConfirmToJobSeeker extends EmailConfirm {
 	@OneToOne//Unidirectional
 	private JobSeeker jobSeeker;
 	
-	public EmailConfirmToJobSeeker(boolean isConfirm) {
-		super(isConfirm);
+	public EmailConfirmToJobSeeker(boolean confirmStatus) {
+		super(confirmStatus);
 	}
 	
 	public EmailConfirmToJobSeeker(JobSeeker jobSeeker) {
@@ -29,8 +29,8 @@ public class EmailConfirmToJobSeeker extends EmailConfirm {
 		this.jobSeeker = jobSeeker;
 	}
 	
-	public EmailConfirmToJobSeeker(boolean isConfirm, JobSeeker jobSeeker) {
-		super(isConfirm);
+	public EmailConfirmToJobSeeker(boolean confirmStatus, JobSeeker jobSeeker) {
+		super(confirmStatus);
 		this.jobSeeker = jobSeeker;
 	}
 	

@@ -62,7 +62,7 @@ public class EmployerManager implements EmployerService {
 			return new ErrorResult("There is an employer record with this email.");
 		} else {
 			this.employerDao.save(employer);
-			// default isConfirm=false, default OnUpdateProcessStatus=true
+			// default isConfirm=false, default OnUpdateProcessStatus=false
 			this.systemEmployeeConfirmToEmployerService.add(new SystemEmployeeConfirmToEmployer(employer));
 			this.emailConfirmToEmployerService.add(new EmailConfirmToEmployer(employer));
 			return new SuccessResult("Employer added successfully.");

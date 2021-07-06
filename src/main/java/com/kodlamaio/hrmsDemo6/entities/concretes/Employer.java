@@ -40,7 +40,7 @@ public class Employer extends User {
 	
 	@Column(name="on_update_process_status", nullable = false)
 	@NotNull
-	private boolean OnUpdateProcessStatus = true;
+	private boolean OnUpdateProcessStatus = false;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "employer")

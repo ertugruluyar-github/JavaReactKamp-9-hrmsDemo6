@@ -3,6 +3,7 @@ package com.kodlamaio.hrmsDemo6.entities.concretes;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -94,7 +95,7 @@ public class JobAdvertisement {
 	private WorkingTimeType workingTimeType;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "favouriteJobAdvertisements")
+	@ManyToMany(mappedBy = "favouriteJobAdvertisements", cascade = CascadeType.REMOVE)
 	private List<JobSeeker> jobSeekersWhoLikeIt;
 	
 	public void setReleaseDate(LocalDate releaseDate) {

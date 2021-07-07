@@ -3,6 +3,7 @@ package com.kodlamaio.hrmsDemo6.entities.concretes;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -64,7 +65,7 @@ public class JobSeeker extends User {
 	private List<CurriculumVitae> curriculumVitaes;
 
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "job_seekers_who_like_it_favourite_job_advertisements",
 		joinColumns = { @JoinColumn(name = "job_seeker_who_like_it_id") },
 		inverseJoinColumns = { @JoinColumn(name = "favourite_job_advertisement_id") })

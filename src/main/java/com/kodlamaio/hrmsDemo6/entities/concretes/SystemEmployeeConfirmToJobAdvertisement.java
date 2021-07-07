@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @Entity
-@Table(name="system_employee_confirms_to_employer")
+@Table(name="system_employee_confirms_to_job_advertisement")
 public class SystemEmployeeConfirmToJobAdvertisement extends SystemEmployeeConfirm {
 	
 	@OneToOne//Unidirectionals

@@ -28,7 +28,7 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	@Override
 	public DataResult<List<SystemEmployeeConfirmToJobAdvertisement>> getAll() {
 		return new SuccessDataResult<List<SystemEmployeeConfirmToJobAdvertisement>>(
-				"System employee confirm to job advertisements listed successfully.",
+				"System employee confirms to job advertisement listed successfully.",
 				this.systemEmployeeConfirmToJobAdvertisementDao.findAll());
 	}
 
@@ -90,8 +90,8 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	@Override
 	public Result deleteByJobAdvertisementId(int id) {
 		long countOfDeleted = this.systemEmployeeConfirmToJobAdvertisementDao.deleteByJobAdvertisement_Id(id);
-		return new SuccessResult(
-				countOfDeleted + " system employee confirms to job advertisement deleted successfully.");
+		return new SuccessResult(countOfDeleted
+				+ " system employee confirms to job advertisement deleted by job advertisement id successfully.");
 	}
 
 	@Override

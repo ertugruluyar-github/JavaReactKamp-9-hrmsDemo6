@@ -26,7 +26,7 @@ public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerServ
 
 	@Override
 	public DataResult<List<EmailConfirmToEmployer>> getAll() {
-		return new SuccessDataResult<List<EmailConfirmToEmployer>>("Email confirm to employers listed successfully.",
+		return new SuccessDataResult<List<EmailConfirmToEmployer>>("Email confirms to employer listed successfully.",
 				this.emailConfirmToEmployerDao.findAll());
 	}
 
@@ -84,7 +84,7 @@ public class EmailConfirmToEmployerManager implements EmailConfirmToEmployerServ
 	@Override
 	public Result deleteByEmployerId(int id) {
 		long countOfDeleted = this.emailConfirmToEmployerDao.deleteByEmployer_Id(id);
-		return new SuccessResult(countOfDeleted + " email confirms to employer deleted successfully.");
+		return new SuccessResult(countOfDeleted + " email confirms to employer deleted by employer id successfully.");
 	}
 
 	@Override

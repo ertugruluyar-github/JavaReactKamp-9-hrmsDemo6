@@ -26,7 +26,7 @@ public class EmailConfirmToJobSeekerManager implements EmailConfirmToJobSeekerSe
 
 	@Override
 	public DataResult<List<EmailConfirmToJobSeeker>> getAll() {
-		return new SuccessDataResult<List<EmailConfirmToJobSeeker>>("Email confirm to job seekers listed successfully.",
+		return new SuccessDataResult<List<EmailConfirmToJobSeeker>>("Email confirms to job seeker listed successfully.",
 				this.emailConfirmToJobSeekerDao.findAll());
 	}
 
@@ -84,7 +84,8 @@ public class EmailConfirmToJobSeekerManager implements EmailConfirmToJobSeekerSe
 	@Override
 	public Result deleteByJobSeekerId(int id) {
 		long countOfDeleted = this.emailConfirmToJobSeekerDao.deleteByJobSeeker_Id(id);
-		return new SuccessResult(countOfDeleted + " email confirms to job seeker deleted successfully.");
+		return new SuccessResult(
+				countOfDeleted + " email confirms to job seeker deleted by job seeker id successfully.");
 	}
 
 	@Override

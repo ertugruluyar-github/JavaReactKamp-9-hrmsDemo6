@@ -36,7 +36,7 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 	@Override
 	public DataResult<List<SystemEmployeeConfirmToEmployer>> getAll() {
 		return new SuccessDataResult<List<SystemEmployeeConfirmToEmployer>>(
-				"System employee confirm to employers listed successfully.",
+				"System employee confirms to employer listed successfully.",
 				this.systemEmployeeConfirmToEmployerDao.findAll());
 	}
 
@@ -96,7 +96,8 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 	@Override
 	public Result deleteByEmployerId(int id) {
 		long countOfDeleted = this.systemEmployeeConfirmToEmployerDao.deleteByEmployer_Id(id);
-		return new SuccessResult(countOfDeleted + " system employee confirms to employer deleted successfully.");
+		return new SuccessResult(
+				countOfDeleted + " system employee confirms to employer deleted by employer id successfully.");
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 			currentEmployer.setOnUpdateProcessStatus(false);
 			this.systemEmployeeConfirmToEmployerDao.save(systemEmployeeConfirmToEmployer);
 			String latestEmployerJsonString = currentEmployer.getEmployerLastUpdateJsonString();
-			
+
 			try {
 				Employer latestEmployer = new ObjectMapper().readValue(latestEmployerJsonString, Employer.class);
 				this.employerDao.save(latestEmployer);

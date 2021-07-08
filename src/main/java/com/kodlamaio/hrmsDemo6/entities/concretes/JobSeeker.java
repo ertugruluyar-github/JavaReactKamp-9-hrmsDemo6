@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -61,14 +62,17 @@ public class JobSeeker extends User {
 	private String gender;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "jobSeeker")
+	@OneToMany(mappedBy = "jobSeeker", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CurriculumVitae> curriculumVitaes;
 
-	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.REMOVE)
+	private EmailConfirmToJobSeeker emailConfirmToJobSeeker;
+
 	@ManyToMany(cascade = CascadeType.REMOVE)
-	@JoinTable(name = "job_seekers_who_like_it_favourite_job_advertisements",
-		joinColumns = { @JoinColumn(name = "job_seeker_who_like_it_id") },
-		inverseJoinColumns = { @JoinColumn(name = "favourite_job_advertisement_id") })
+	@JoinTable(name = "job_seekers_who_like_it_favourite_job_advertisements", joinColumns = {
+			@JoinColumn(name = "job_seeker_who_like_it_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "favourite_job_advertisement_id") })
 	private List<JobAdvertisement> favouriteJobAdvertisements;
 
 	public JobSeeker(Integer id, String email, String password, String firstName, String lastName, String nationalityId,

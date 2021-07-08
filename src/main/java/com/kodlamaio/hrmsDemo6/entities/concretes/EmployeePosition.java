@@ -22,21 +22,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="employee_positions")
+@Table(name = "employee_positions")
 public class EmployeePosition {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private Integer id;
-	
-	@Column(name="position_name", nullable = false, unique = true)
+
+	@Column(name = "position_name", nullable = false, unique = true)
 	@NotNull
 	@NotBlank
 	private String positionName;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "employeePosition")
 	private List<JobAdvertisement> jobAdvertisements;
-	
+
 }

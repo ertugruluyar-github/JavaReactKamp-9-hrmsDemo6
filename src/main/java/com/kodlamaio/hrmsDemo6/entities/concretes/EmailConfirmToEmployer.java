@@ -14,24 +14,24 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @Entity
-@Table(name="email_confirms_to_employer")
+@Table(name = "email_confirms_to_employer")
 public class EmailConfirmToEmployer extends EmailConfirm {
-	
-	@OneToOne//Unidirectional
+
+	@OneToOne
 	private Employer employer;
-	
+
 	public EmailConfirmToEmployer(boolean confirmStatus) {
 		super(confirmStatus);
 	}
-	
+
 	public EmailConfirmToEmployer(Employer employer) {
 		super(false);
 		this.employer = employer;
 	}
-	
+
 	public EmailConfirmToEmployer(boolean confirmStatus, Employer employer) {
 		super(confirmStatus);
 		this.employer = employer;
 	}
-	
+
 }

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name="system_employee_confirms_to_employer")
 public class SystemEmployeeConfirmToEmployer extends SystemEmployeeConfirm {
 	
-	@OneToOne//Unidirectional
+	@OneToOne
 	private Employer employer;
 	
 	public SystemEmployeeConfirmToEmployer(boolean confirmStatus) {

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name="system_employee_confirms_to_job_advertisement")
 public class SystemEmployeeConfirmToJobAdvertisement extends SystemEmployeeConfirm {
 	
-	@OneToOne//Unidirectionals
+	@OneToOne
 	private JobAdvertisement jobAdvertisement;
 	
 	public SystemEmployeeConfirmToJobAdvertisement(boolean confirmStatus) {

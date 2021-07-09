@@ -102,26 +102,31 @@ public class JobSeekerManager implements JobSeekerService {
 	@Override
 	public DataResult<Boolean> existsJobSeekerByEmail(String email) {
 		if (this.jobSeekerDao.existsJobSeekerByEmail(email)) {
-			return new SuccessDataResult<Boolean>(
-					"There is a jobseeker with this email: " + email, true);
+			return new SuccessDataResult<Boolean>("There is a jobseeker with this email: " + email, true);
 		} else {
-			return new ErrorDataResult<Boolean>(
-					"There is no jobseeker with this email." + email, false);
+			return new ErrorDataResult<Boolean>("There is no jobseeker with this email." + email, false);
 		}
 	}
 
 	@Override
 	public Result likeJobAdvertisement(int jobSeekerId, int jobAdvertisementId) {
 		JobSeeker currentJobSeeker = this.jobSeekerDao.findById(jobSeekerId).get();
-		List<JobAdvertisement> currentFavouriteJobAdvertisements = currentJobSeeker.getFavouriteJobAdvertisements();
+		// Set<JobAdvertisement> currentFavouriteJobAdvertisements =
+		// currentJobSeeker.getFavouriteJobAdvertisements();
 		JobAdvertisement newFavouriteJobAdvertisement = this.jobAdvertisementService.get(jobAdvertisementId).getData();
-		if (!currentFavouriteJobAdvertisements.contains(newFavouriteJobAdvertisement)) {
-			currentFavouriteJobAdvertisements.add(newFavouriteJobAdvertisement);
-			currentJobSeeker.setFavouriteJobAdvertisements(currentFavouriteJobAdvertisements);
+//		if (!currentFavouriteJobAdvertisements.contains(newFavouriteJobAdvertisement)) {
+//			currentFavouriteJobAdvertisements.add(newFavouriteJobAdvertisement);
+//			currentJobSeeker.setFavouriteJobAdvertisements(currentFavouriteJobAdvertisements);
+//			this.jobSeekerDao.save(currentJobSeeker);// updated jobSeeker
+//			return new SuccessResult("Jobseeker liked job advertisement successfully.");
+//		} else {
+//			return new ErrorResult("The job advertisement is already liked!");
+//		}
+		if (currentJobSeeker.addJobAdvertisement(newFavouriteJobAdvertisement)) {
 			this.jobSeekerDao.save(currentJobSeeker);// updated jobSeeker
 			return new SuccessResult("Jobseeker liked job advertisement successfully.");
 		} else {
-			return new ErrorResult("The job advertisement is already liked!");
+			return new ErrorResult("The job advertisement is already liked or the job seeker already liked the job advertisement.");
 		}
 
 	}
@@ -129,14 +134,16 @@ public class JobSeekerManager implements JobSeekerService {
 	@Override
 	public Result dislikeJobAdvertisement(int jobSeekerId, int jobAdvertisementId) {
 		JobSeeker currentJobSeeker = this.jobSeekerDao.findById(jobSeekerId).get();
-		List<JobAdvertisement> currentFavouriteJobAdvertisements = currentJobSeeker.getFavouriteJobAdvertisements();
+		// Set<JobAdvertisement> currentFavouriteJobAdvertisements =
+		// currentJobSeeker.getFavouriteJobAdvertisements();
 		JobAdvertisement jobAdvertisementDislike = this.jobAdvertisementService.get(jobAdvertisementId).getData();
-		if (currentFavouriteJobAdvertisements.remove(jobAdvertisementDislike)) {
-			currentJobSeeker.setFavouriteJobAdvertisements(currentFavouriteJobAdvertisements);
+		if (currentJobSeeker.removeJobAdvertisement(jobAdvertisementDislike)) {
+			// currentJobSeeker.setFavouriteJobAdvertisements(currentFavouriteJobAdvertisements);
 			this.jobSeekerDao.save(currentJobSeeker);// updated jobSeeker
 			return new SuccessResult("Jobseeker disliked job advertisement successfully.");
 		} else {
-			return new ErrorResult("The job advertisement is not exist in the liked job advertisements!");
+			return new ErrorResult(
+					"The job advertisement is not exist in the liked job advertisements or the job seeker not exist.");
 		}
 
 	}

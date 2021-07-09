@@ -69,7 +69,7 @@ public class CurriculumVitae {
 	private List<TechnologyKnowledge> technologyKnowledges;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "job_seeker_id") // Yazmaya gerek yok ama kod okunurluluğu için iyidir.
+	@JoinColumn(name = "job_seeker_id")// Yazmaya gerek yok ama kod okunurluluğu için iyidir.
 	private JobSeeker jobSeeker;
 
 	public void setCreateDate(LocalDate createDate) {

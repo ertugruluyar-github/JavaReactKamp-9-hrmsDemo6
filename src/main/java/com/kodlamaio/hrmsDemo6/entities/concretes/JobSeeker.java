@@ -1,7 +1,9 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -69,11 +71,11 @@ public class JobSeeker extends User {
 	@OneToOne(cascade = CascadeType.REMOVE)
 	private EmailConfirmToJobSeeker emailConfirmToJobSeeker;
 
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany
 	@JoinTable(name = "job_seekers_who_like_it_favourite_job_advertisements", joinColumns = {
 			@JoinColumn(name = "job_seeker_who_like_it_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "favourite_job_advertisement_id") })
-	private List<JobAdvertisement> favouriteJobAdvertisements;
+	private Set<JobAdvertisement> favouriteJobAdvertisements = new HashSet<JobAdvertisement>();
 
 	public JobSeeker(Integer id, String email, String password, String firstName, String lastName, String nationalityId,
 			LocalDate dateOfBirth, String gender) {
@@ -93,6 +95,16 @@ public class JobSeeker extends User {
 		this.nationalityId = nationalityId;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
+	}
+
+	public boolean addJobAdvertisement(JobAdvertisement jobAdvertisement) {
+		return this.favouriteJobAdvertisements.add(jobAdvertisement)
+				&& jobAdvertisement.getJobSeekersWhoLikeIt().add(this);
+	}
+
+	public boolean removeJobAdvertisement(JobAdvertisement jobAdvertisement) {
+		return this.favouriteJobAdvertisements.remove(jobAdvertisement)
+				&& jobAdvertisement.getJobSeekersWhoLikeIt().remove(this);
 	}
 
 }

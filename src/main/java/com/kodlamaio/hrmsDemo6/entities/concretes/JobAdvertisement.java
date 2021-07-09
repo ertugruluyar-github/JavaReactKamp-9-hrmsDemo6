@@ -1,7 +1,8 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -108,8 +109,8 @@ public class JobAdvertisement {
 	private SystemEmployeeConfirmToJobAdvertisement systemEmployeeConfirmToJobAdvertisement;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "favouriteJobAdvertisements", cascade = CascadeType.REMOVE)
-	private List<JobSeeker> jobSeekersWhoLikeIt;
+	@ManyToMany(mappedBy = "favouriteJobAdvertisements")
+	private Set<JobSeeker> jobSeekersWhoLikeIt = new HashSet<JobSeeker>();
 
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = LocalDate.now();

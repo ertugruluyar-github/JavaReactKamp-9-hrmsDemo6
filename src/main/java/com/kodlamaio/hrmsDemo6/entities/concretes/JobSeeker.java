@@ -1,6 +1,7 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class JobSeeker extends User {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "jobSeeker", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<CurriculumVitae> curriculumVitaes;
+	private List<CurriculumVitae> curriculumVitaes = new ArrayList<CurriculumVitae>();
 
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.REMOVE)

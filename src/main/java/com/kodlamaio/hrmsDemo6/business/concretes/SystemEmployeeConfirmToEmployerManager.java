@@ -17,7 +17,9 @@ import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.EmployerDao;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeConfirmToEmployerDao;
+import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeDao;
 import com.kodlamaio.hrmsDemo6.entities.concretes.Employer;
+import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployee;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToEmployer;
 
 @Service
@@ -25,12 +27,15 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 
 	private SystemEmployeeConfirmToEmployerDao systemEmployeeConfirmToEmployerDao;
 	private EmployerDao employerDao;
+	private SystemEmployeeDao systemEmployeeDao;
 
 	@Autowired
 	public SystemEmployeeConfirmToEmployerManager(SystemEmployeeConfirmToEmployerDao systemEmployeeConfirmToEmployerDao,
-			EmployerDao employerDao) {
+			EmployerDao employerDao,
+			SystemEmployeeDao systemEmployeeDao) {
 		this.systemEmployeeConfirmToEmployerDao = systemEmployeeConfirmToEmployerDao;
 		this.employerDao = employerDao;
+		this.systemEmployeeDao = systemEmployeeDao;
 	}
 
 	@Override
@@ -107,12 +112,15 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 	}
 
 	@Override
-	public Result confirmEmployer(int employerId) {
+	public Result confirmEmployer(int systemEmployeeId, int employerId) {
 		Employer currentEmployer = this.employerDao.findById(employerId).orElse(null);
+		SystemEmployee systemEmployeeWhoConfirmToEmployer = this.systemEmployeeDao.findById(systemEmployeeId).orElse(null);
 		SystemEmployeeConfirmToEmployer systemEmployeeConfirmToEmployer = this.systemEmployeeConfirmToEmployerDao
 				.findByEmployer_Id(employerId);
 		if (currentEmployer == null) {
 			return new ErrorResult("The employer not exist.");
+		} else if (systemEmployeeWhoConfirmToEmployer == null) {
+			return new ErrorResult("The system employee not exist.");
 		} else if (systemEmployeeConfirmToEmployer == null) {
 			return new ErrorResult("The system employee confirm to employer not exist.");
 		} else {
@@ -131,7 +139,6 @@ public class SystemEmployeeConfirmToEmployerManager implements SystemEmployeeCon
 			}
 			return new SuccessResult("Employer confirmed by system employee successfully.");
 		}
-
 	}
-
+	
 }

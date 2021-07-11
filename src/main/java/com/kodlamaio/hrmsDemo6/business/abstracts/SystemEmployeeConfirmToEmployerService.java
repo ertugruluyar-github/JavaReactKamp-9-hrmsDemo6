@@ -22,5 +22,5 @@ public interface SystemEmployeeConfirmToEmployerService {
 	Result deleteByEmployerId(int id);
 	Result update(SystemEmployeeConfirmToEmployer systemEmployeeConfirmToEmployer);
 	
-	Result confirmEmployer(int employerId);
+	Result confirmEmployer(int systemEmployeeId, int employerId);
 }

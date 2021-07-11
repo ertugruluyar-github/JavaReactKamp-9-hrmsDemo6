@@ -1,6 +1,8 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,6 +21,10 @@ public class SystemEmployeeConfirmToJobAdvertisement extends SystemEmployeeConfi
 	
 	@OneToOne
 	private JobAdvertisement jobAdvertisement;
+	
+	@ManyToOne
+	@JoinColumn(name = "system_employee_id")
+	private SystemEmployee systemEmployee;
 	
 	public SystemEmployeeConfirmToJobAdvertisement(boolean confirmStatus) {
 		super(confirmStatus);

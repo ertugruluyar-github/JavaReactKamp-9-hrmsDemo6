@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -70,8 +69,9 @@ public class JobAdvertisement {
 	@Column(name = "active", nullable = false)
 	@NotNull
 	private boolean active;
+	
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "employee_position_id")
 	private EmployeePosition employeePosition;
 
@@ -80,27 +80,29 @@ public class JobAdvertisement {
 	// "_" ile birleştirerek city_id şeklinde oluşturur. Ekstra bu adı düzenlemek
 	// için JoinColumn'a ihtiyaç yoktur.
 	// ama kod okunurluğu için iyi oluyor.
-	@ManyToOne(fetch = FetchType.LAZY) // (cascade = CascadeType.PERSIST)// JobAdvertisement kaydedince City'yi de
-										// otomatik kaydeder.
+	// (cascade = CascadeType.PERSIST)// JobAdvertisement kaydedince City'yi de 
+	// otomatik kaydeder.
+	@ManyToOne
 	@JoinColumn(name = "city_id")
 	private City city;
 	// Henüz sistemde hazır kayıtlı şehirler olmadığı için iş ilanı kaydederken
-	// otoatik city'yi de kaydetmesi için cascade koyulabilir.
+	// otomatik city'yi de kaydetmesi için cascade koyulabilir ya da
+	// manuel olarak önce city kaydedilir.
 	// şehirleri önceden veri tabanına kaydedersek buna gerek kalmaz.
 
 	// Default olarak sütun ismini, field adı(employer) ile Employer'ın primary key
 	// adını(id)
 	// "_" ile birleştirerek employer_id şeklinde oluşturur. Ekstra bu adı
 	// düzenlemek için JoinColumn'a ihtiyaç yoktur.
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "employer_id")
 	private Employer employer;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "working_place_type_id")
 	private WorkingPlaceType workingPlaceType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "working_time_type_id")
 	private WorkingTimeType workingTimeType;
 

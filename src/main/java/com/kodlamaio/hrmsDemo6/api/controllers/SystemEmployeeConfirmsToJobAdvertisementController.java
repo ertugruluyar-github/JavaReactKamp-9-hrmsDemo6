@@ -49,16 +49,16 @@ public class SystemEmployeeConfirmsToJobAdvertisementController {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService.get(id));
 	}
 
-	@GetMapping("/getallbyjobadvertisementid")
-	public ResponseEntity<?> getAllByJobAdvertisementId(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService.getAllByJobAdvertisementId(id));
+	@GetMapping("/getbyjobadvertisementid")
+	public ResponseEntity<?> getByJobAdvertisementId(@RequestParam(name = "id") int id) {
+		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService.getByJobAdvertisementId(id));
 	}
 
-	@GetMapping("/getfirstbyjobadvertisementidorderbydateofconfirmdesc")
-	public ResponseEntity<?> getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService
-				.getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(id));
-	}
+//	@GetMapping("/getfirstbyjobadvertisementidorderbydateofconfirmdesc")
+//	public ResponseEntity<?> getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
+//		return ResponseEntity.ok(this.systemEmployeeConfirmToJobAdvertisementService
+//				.getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(id));
+//	}
 
 	@PostMapping("/add")
 	public ResponseEntity<?> add(
@@ -80,9 +80,9 @@ public class SystemEmployeeConfirmsToJobAdvertisementController {
 	}
 
 	@PostMapping("/confirmjobadvertisement)")
-	public ResponseEntity<?> confirmJobAdvertisement(@RequestParam(name = "jobAdvertisementId") int jobAdvertisementId) {
+	public ResponseEntity<?> confirmJobAdvertisement(@RequestParam(name = "systemEmployeeId") int systemEmployeeId, @RequestParam(name = "jobAdvertisementId") int jobAdvertisementId) {
 		return ResponseEntity
-				.ok(this.systemEmployeeConfirmToJobAdvertisementService.confirmJobAdvertisement(jobAdvertisementId));
+				.ok(this.systemEmployeeConfirmToJobAdvertisementService.confirmJobAdvertisement(systemEmployeeId, jobAdvertisementId));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

@@ -53,13 +53,13 @@ public class SystemEmployeeConfirmsToEmployerController {
 	public ResponseEntity<?> getByEmployerId(@RequestParam(name = "id") int id) {
 		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.getByEmployerId(id));
 	}
-	/*
-	@GetMapping("/getfirstbyemployeridorderbydateofconfirmdesc")
-	public ResponseEntity<?> getFirstByEmployerIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
-		return ResponseEntity
-				.ok(this.systemEmployeeConfirmToEmployerService.getFirstByEmployerIdOrderByDateOfConfirmDesc(id));
-	}
-	*/
+	
+//	@GetMapping("/getfirstbyemployeridorderbydateofconfirmdesc")
+//	public ResponseEntity<?> getFirstByEmployerIdOrderByDateOfConfirmDesc(@RequestParam(name = "id") int id) {
+//		return ResponseEntity
+//				.ok(this.systemEmployeeConfirmToEmployerService.getFirstByEmployerIdOrderByDateOfConfirmDesc(id));
+//	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(
 			@Valid @RequestBody SystemEmployeeConfirmToEmployer systemEmployeeConfirmToToEmployer) {
@@ -78,8 +78,8 @@ public class SystemEmployeeConfirmsToEmployerController {
 	}
 
 	@PostMapping("/confirmemployer)")
-	public ResponseEntity<?> confirmEmployer(@RequestParam(name = "employerId") int employerId) {
-		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.confirmEmployer(employerId));
+	public ResponseEntity<?> confirmEmployer(@RequestParam(name = "systemEmployeeId") int systemEmployeeId, @RequestParam(name = "employerId") int employerId) {
+		return ResponseEntity.ok(this.systemEmployeeConfirmToEmployerService.confirmEmployer(systemEmployeeId, employerId));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

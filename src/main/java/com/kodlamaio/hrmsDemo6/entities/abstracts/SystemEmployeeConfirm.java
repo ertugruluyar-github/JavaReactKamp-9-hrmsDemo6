@@ -1,6 +1,6 @@
 package com.kodlamaio.hrmsDemo6.entities.abstracts;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,14 +37,14 @@ public abstract class SystemEmployeeConfirm extends Confirm {
 	@Column(name="date_of_confirm")
 	@NotNull
 	@PastOrPresent
-	private LocalDate dateOfConfirm = LocalDate.now();
+	private LocalDateTime dateOfConfirm = LocalDateTime.now();
 	
 	public SystemEmployeeConfirm(boolean confirmStatus) {
 		this.confirmStatus = confirmStatus;
 	}
 	
-	public void setDateOfConfirm(LocalDate dateOfConfirm) {
-		this.dateOfConfirm = LocalDate.now();
+	public void setDateOfConfirm(LocalDateTime dateOfConfirm) {
+		this.dateOfConfirm = LocalDateTime.now();
 	}
 	
 }

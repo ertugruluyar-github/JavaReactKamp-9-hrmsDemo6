@@ -8,21 +8,31 @@ import org.springframework.stereotype.Service;
 import com.kodlamaio.hrmsDemo6.business.abstracts.SystemEmployeeConfirmToJobAdvertisementService;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.DataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorDataResult;
+import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.ErrorResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.Result;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessDataResult;
 import com.kodlamaio.hrmsDemo6.core.utilities.result.concretes.SuccessResult;
+import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.JobAdvertisementDao;
 import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeConfirmToJobAdvertisementDao;
+import com.kodlamaio.hrmsDemo6.dataAccess.abstracts.SystemEmployeeDao;
+import com.kodlamaio.hrmsDemo6.entities.concretes.JobAdvertisement;
+import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployee;
 import com.kodlamaio.hrmsDemo6.entities.concretes.SystemEmployeeConfirmToJobAdvertisement;
 
 @Service
 public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmployeeConfirmToJobAdvertisementService {
 
 	private SystemEmployeeConfirmToJobAdvertisementDao systemEmployeeConfirmToJobAdvertisementDao;
+	private JobAdvertisementDao jobAdvertisementDao;
+	private SystemEmployeeDao systemEmployeeDao;
 
 	@Autowired
 	public SystemEmployeeConfirmToJobAdvertisementManager(
-			SystemEmployeeConfirmToJobAdvertisementDao systemEmployeeConfirmToJobAdvertisementDao) {
+			SystemEmployeeConfirmToJobAdvertisementDao systemEmployeeConfirmToJobAdvertisementDao,
+			JobAdvertisementDao jobAdvertisementDao, SystemEmployeeDao systemEmployeeDao) {
 		this.systemEmployeeConfirmToJobAdvertisementDao = systemEmployeeConfirmToJobAdvertisementDao;
+		this.jobAdvertisementDao = jobAdvertisementDao;
+		this.systemEmployeeDao = systemEmployeeDao;
 	}
 
 	@Override
@@ -45,35 +55,35 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	}
 
 	@Override
-	public DataResult<List<SystemEmployeeConfirmToJobAdvertisement>> getAllByJobAdvertisementId(int id) {
-		List<SystemEmployeeConfirmToJobAdvertisement> confirms = this.systemEmployeeConfirmToJobAdvertisementDao
-				.findByJobAdvertisement_Id(id);
-
-		if (!confirms.isEmpty()) {
-			return new SuccessDataResult<List<SystemEmployeeConfirmToJobAdvertisement>>(
-					"The specified system employee confirms to job advertisement got by job advertisement id successfully.",
-					confirms);
-		} else {
-			return new ErrorDataResult<List<SystemEmployeeConfirmToJobAdvertisement>>(
-					"The specified system employee confirms to job advertisement are not available.", confirms);
-		}
-	}
-
-	@Override
-	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(
-			int id) {
+	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getByJobAdvertisementId(int id) {
 		SystemEmployeeConfirmToJobAdvertisement confirm = this.systemEmployeeConfirmToJobAdvertisementDao
-				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(id);
+				.findByJobAdvertisement_Id(id);
 
 		if (confirm != null) {
 			return new SuccessDataResult<SystemEmployeeConfirmToJobAdvertisement>(
-					"The system employee confirm to job advertisement got by job advertisement id successfully.",
+					"The specified system employee confirms to job advertisement got by job advertisement id successfully.",
 					confirm);
 		} else {
 			return new ErrorDataResult<SystemEmployeeConfirmToJobAdvertisement>(
-					"The system employee confirm to job advertisement is not available.", confirm);
+					"The specified system employee confirms to job advertisement are not available.", confirm);
 		}
 	}
+
+//	@Override
+//	public DataResult<SystemEmployeeConfirmToJobAdvertisement> getFirstByJobAdvertisementIdOrderByDateOfConfirmDesc(
+//			int id) {
+//		SystemEmployeeConfirmToJobAdvertisement confirm = this.systemEmployeeConfirmToJobAdvertisementDao
+//				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(id);
+//
+//		if (confirm != null) {
+//			return new SuccessDataResult<SystemEmployeeConfirmToJobAdvertisement>(
+//					"The system employee confirm to job advertisement got by job advertisement id successfully.",
+//					confirm);
+//		} else {
+//			return new ErrorDataResult<SystemEmployeeConfirmToJobAdvertisement>(
+//					"The system employee confirm to job advertisement is not available.", confirm);
+//		}
+//	}
 
 	@Override
 	public Result add(SystemEmployeeConfirmToJobAdvertisement systemEmployeeConfirmToJobAdvertisement) {
@@ -101,12 +111,24 @@ public class SystemEmployeeConfirmToJobAdvertisementManager implements SystemEmp
 	}
 
 	@Override
-	public Result confirmJobAdvertisement(int jobAdvertisementId) {
-		SystemEmployeeConfirmToJobAdvertisement latestConfirm = this.systemEmployeeConfirmToJobAdvertisementDao
-				.findFirstByJobAdvertisement_IdOrderByDateOfConfirmDesc(jobAdvertisementId);
-		latestConfirm.setConfirmStatus(true);
-		this.systemEmployeeConfirmToJobAdvertisementDao.save(latestConfirm);
-		return new SuccessResult("Job advertisement confirmed by system employee successfully.");
+	public Result confirmJobAdvertisement(int systemEmployeeId, int jobAdvertisementId) {
+		JobAdvertisement currentJobAdvertisement = this.jobAdvertisementDao.findById(jobAdvertisementId).orElse(null);
+		SystemEmployee systemEmployeeWhoConfirmToJobAdvertisement = this.systemEmployeeDao.findById(systemEmployeeId)
+				.orElse(null);
+		SystemEmployeeConfirmToJobAdvertisement systemEmployeeConfirmToJobAdvertisement = this.systemEmployeeConfirmToJobAdvertisementDao
+				.findByJobAdvertisement_Id(jobAdvertisementId);
+		
+		if (currentJobAdvertisement == null) {
+			return new ErrorResult("The job advertisement not exist.");
+		} else if (systemEmployeeWhoConfirmToJobAdvertisement == null) {
+			return new ErrorResult("The system employee not exist.");
+		} else if (systemEmployeeConfirmToJobAdvertisement == null) {
+			return new ErrorResult("The system employee confirm to job advertisement not exist.");
+		} else {
+			systemEmployeeConfirmToJobAdvertisement.setConfirmStatus(true);
+			this.systemEmployeeConfirmToJobAdvertisementDao.save(systemEmployeeConfirmToJobAdvertisement);
+			return new SuccessResult("Job advertisement confirmed by system employee successfully.");
+		}
 	}
 
 }

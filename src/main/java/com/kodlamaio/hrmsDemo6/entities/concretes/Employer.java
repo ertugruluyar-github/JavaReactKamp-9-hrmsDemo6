@@ -1,5 +1,6 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,8 +45,8 @@ public class Employer extends User {
 	@NotNull
 	private boolean OnUpdateProcessStatus = false;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	private PhoneNumber phoneNumber;
 
 	@JsonIgnore
@@ -58,14 +59,14 @@ public class Employer extends User {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<JobAdvertisement> jobAdvertisements;
+	private List<JobAdvertisement> jobAdvertisements = new ArrayList<JobAdvertisement>();
 	// Burada JsonIgnore diyerek Json verisi çekerken bunu alamayağız.
 	// Bunu neden hep böyle bidirectional yapmak zorundayız ki?
 	// Zaten JobAdvertisement'den hem city hem employer bilgisine ulaşabiliyoruz.
 	// Burayı(bu üç satırı) silerek unidirectional ilişki yapsak yine aynı json
 	// bilgisini alabiliyoruz.
 	// Neden hep bidirectional yaptığımızı anlamadım.
-	// Bidirectional yapınca bu cascade yapabilme avantajı var(sonradan farkettim).
+	// Bidirectional yapınca bu cascade ve orphanRemoval yapabilme avantajı var(sonradan farkettim).
 
 	public Employer(Integer id, String email, String password, String companyName, String webSite) {
 		super(id, email, password);

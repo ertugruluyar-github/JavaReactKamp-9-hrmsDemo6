@@ -1,12 +1,12 @@
 package com.kodlamaio.hrmsDemo6.entities.concretes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,25 +50,25 @@ public class CurriculumVitae {
 	@Column(name = "create_date", nullable = false)
 	@NotNull
 	@PastOrPresent
-	private LocalDate createDate = LocalDate.now();;
+	private LocalDate createDate = LocalDate.now();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "curriculumVitae", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<School> schools;
+	private List<School> schools = new ArrayList<School>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "curriculumVitae", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<WorkExperience> workExperiences;
+	private List<WorkExperience> workExperiences = new ArrayList<WorkExperience>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "curriculumVitae", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Language> languages;
+	private List<Language> languages = new ArrayList<Language>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "curriculumVitae", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<TechnologyKnowledge> technologyKnowledges;
+	private List<TechnologyKnowledge> technologyKnowledges = new ArrayList<TechnologyKnowledge>();
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "job_seeker_id")// Yazmaya gerek yok ama kod okunurluluğu için iyidir.
 	private JobSeeker jobSeeker;
 
